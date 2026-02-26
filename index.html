@@ -1,794 +1,859 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="Gençİş — Türkiye'nin esnek iş gücü platformu. Gençler ve öğrenciler için anlık ve kısa süreli iş fırsatları.">
-  <meta name="theme-color" content="#0a0a0a">
-  <meta property="og:title" content="Gençİş — Türkiye İş Gücü Platformu">
-  <meta property="og:description" content="Boş zamanını kazanca dönüştür. Öğrenci ve gençler için anlık iş fırsatları.">
-  <meta property="og:type" content="website">
-  <title>Gençİş — Esnek İş Gücü Platformu</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="Gençİş — Türkiye'nin esnek iş gücü platformu.">
+<meta name="theme-color" content="#0a0a0a">
+<title>Gençİş — Esnek İş Gücü Platformu</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--border:#2a2a2a;--text:#f0f0f0;--text2:#888;--accent:#e8ff47;--accent2:#47ffb8;--red:#ff4757;--card:#161616;--shadow:0 4px 24px rgba(0,0,0,.4);--r:16px;--rs:10px;--rl:24px;--tr:.2s ease}
+body.light{--bg:#f4f4ef;--bg2:#ebebeb;--bg3:#e0e0d8;--border:#d0d0c8;--text:#0a0a0a;--text2:#555;--accent:#1a1a1a;--accent2:#1a6040;--card:#fff;--shadow:0 4px 24px rgba(0,0,0,.08)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;user-select:none}
+input,select,textarea{font-family:'DM Sans',sans-serif}
+
+/* SCREENS */
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ONBOARDING */
+#onboarding{align-items:center;justify-content:center;position:relative;overflow:hidden}
+.ob-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 15% 50%,rgba(232,255,71,.08) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 85% 20%,rgba(71,255,184,.07) 0%,transparent 70%)}
+.ob-grid{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(232,255,71,.05) 1px,transparent 1px);background-size:36px 36px}
+.ob-slide{display:none;text-align:center;padding:2.5rem 2rem;max-width:460px;width:100%;z-index:1}
+.ob-slide.active{display:block;animation:fadeUp .5s ease}
+.ob-icon{font-size:4.5rem;margin-bottom:1.5rem;line-height:1}
+.ob-logo{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.5rem}
+.ob-logo-mark{width:54px;height:54px;background:var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:900;font-size:1.7rem;color:#0a0a0a;animation:pulse 2.5s ease infinite}
+.ob-logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.55rem;color:var(--text)}
+.ob-slide h2{font-size:2rem;font-weight:800;margin-bottom:1rem;line-height:1.25}
+.ob-slide p{color:var(--text2);font-size:1rem;line-height:1.75;margin-bottom:2rem}
+.ob-dots{display:flex;gap:8px;justify-content:center;margin-bottom:2rem}
+.ob-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .3s}
+.ob-dot.active{width:28px;border-radius:4px;background:var(--accent)}
+
+/* BUTTONS */
+.btn{padding:.85rem 2rem;border-radius:var(--rs);font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;border:none;transition:all var(--tr);letter-spacing:.02em;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn-accent{background:var(--accent);color:#0a0a0a}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,255,71,.28)}
+.btn-outline{background:transparent;border:2px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{opacity:.85}
+.btn-sm{padding:.4rem .9rem;font-size:.8rem;border-radius:8px}
+.btn-full{width:100%}
+
+/* AUTH */
+#auth{align-items:center;justify-content:center;padding:5rem 1.2rem 2rem}
+.auth-topbar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;z-index:10;background:var(--bg);border-bottom:1px solid var(--border)}
+.auth-box{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:2.5rem 2rem;max-width:420px;width:100%;animation:fadeUp .5s ease;box-shadow:var(--shadow)}
+
+/* FORM */
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.82rem;color:var(--text2);margin-bottom:.4rem;font-weight:500}
+.form-group label .req{color:var(--red);margin-left:2px}
+.fc{width:100%;padding:.78rem 1rem;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--rs);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.93rem;outline:none;transition:border-color var(--tr),box-shadow var(--tr);-webkit-appearance:none}
+.fc:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,255,71,.1)}
+.fc::placeholder{color:var(--text2);opacity:.6}
+select.fc{cursor:pointer}
+select.fc option{background:var(--bg2)}
+textarea.fc{resize:vertical;min-height:90px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+
+/* ALERTS */
+.alert{border-radius:var(--rs);padding:1rem 1.2rem;margin-bottom:1rem;animation:fadeUp .4s ease;font-weight:500}
+.alert-ok{background:rgba(71,255,184,.1);border:1px solid rgba(71,255,184,.3);color:var(--accent2)}
+.alert-ok .at{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;display:block;margin-bottom:.3rem}
+.alert-ok .as{font-size:.83rem;color:var(--text2);font-weight:400}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.2rem;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.tl{display:flex;align-items:center;gap:.5rem}
+.tlm{width:34px;height:34px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:900;font-size:1rem;color:#0a0a0a}
+.tlt{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem}
+.tr2{display:flex;align-items:center;gap:.6rem}
+.icon-btn{width:38px;height:38px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all var(--tr);color:var(--text)}
+.icon-btn:hover{border-color:var(--accent)}
+.av-btn{width:38px;height:38px;border-radius:10px;background:var(--accent);color:#0a0a0a;font-family:'Syne',sans-serif;font-weight:900;font-size:.95rem;border:none}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:1.2rem;padding-bottom:5rem}
+.content::-webkit-scrollbar{width:4px}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* BOTTOM NAV */
+.bottom-nav{display:flex;background:var(--bg2);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;z-index:100}
+.nav-item{flex:1;padding:.7rem .4rem;display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;color:var(--text2);font-size:.68rem;font-family:'DM Sans',sans-serif;font-weight:500;transition:all var(--tr);position:relative}
+.nav-item .ni{font-size:1.3rem}
+.nav-item.active{color:var(--accent)}
+.nav-item.active::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--accent);border-radius:2px 2px 0 0}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block;animation:fadeUp .3s ease}
+.ptitle{font-size:1.5rem;font-weight:800;margin-bottom:1.2rem}
+.stitle{font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.8rem}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;padding:.28rem .75rem;border-radius:20px;font-size:.74rem;font-weight:600;background:var(--bg3);border:1px solid var(--border);color:var(--text2);white-space:nowrap}
+.tag-a{background:rgba(232,255,71,.1);border-color:rgba(232,255,71,.25);color:var(--accent)}
+.tag-g{background:rgba(71,255,184,.1);border-color:rgba(71,255,184,.25);color:var(--accent2)}
+.tag-r{background:rgba(255,71,87,.1);border-color:rgba(255,71,87,.25);color:var(--red)}
+
+/* SEARCH & FILTERS */
+.search-bar{display:flex;align-items:center;gap:.6rem;background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:.7rem 1rem;margin-bottom:1rem;transition:border-color var(--tr)}
+.search-bar:focus-within{border-color:var(--accent)}
+.search-bar input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:.93rem;font-family:'DM Sans',sans-serif}
+.filter-bar{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;margin-bottom:1rem;scrollbar-width:none}
+.filter-bar::-webkit-scrollbar{display:none}
+.fchip{padding:.45rem 1rem;border-radius:20px;background:var(--bg3);border:1.5px solid var(--border);color:var(--text2);font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all var(--tr);font-family:'Syne',sans-serif}
+.fchip:hover{border-color:var(--text2)}
+.fchip.active{background:var(--accent);color:#0a0a0a;border-color:var(--accent)}
+
+/* JOB CARDS */
+.job-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-bottom:.9rem;cursor:pointer;transition:all var(--tr);position:relative;overflow:hidden}
+.job-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity var(--tr)}
+.job-card:hover{border-color:rgba(232,255,71,.4);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.job-card:hover::before{opacity:1}
+.job-banner{font-size:2.8rem;text-align:center;padding:1rem 0;margin-bottom:.8rem;background:var(--bg3);border-radius:var(--rs);border:1px solid var(--border)}
+.jch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.7rem}
+.jco{font-size:.78rem;color:var(--text2);margin-bottom:.2rem}
+.jti{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem}
+.jwa{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--accent);white-space:nowrap}
+.jtags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
+
+/* STATS */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:.9rem .6rem;text-align:center}
+.sv{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;color:var(--accent)}
+.sl{font-size:.72rem;color:var(--text2);margin-top:.2rem;font-weight:500}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;margin-bottom:1rem}
+
+/* PROFILE */
+.profile-hero{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:1.8rem 1.2rem;margin-bottom:1rem;text-align:center;position:relative;overflow:hidden}
+.profile-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,rgba(232,255,71,.08),rgba(71,255,184,.06))}
+.pav{width:76px;height:76px;border-radius:20px;background:var(--accent);color:#0a0a0a;font-family:'Syne',sans-serif;font-weight:900;font-size:2rem;display:flex;align-items:center;justify-content:center;margin:0 auto .9rem;position:relative;z-index:1}
+.pname{font-size:1.25rem;font-weight:800}
+.pmeta{font-size:.82rem;color:var(--text2);margin:.3rem 0 .5rem}
+.pstars{color:#ffd700;font-size:1.05rem;letter-spacing:2px}
+.pscore{font-size:.8rem;color:var(--text2);margin-top:.25rem}
+
+/* SETTINGS */
+.sitem{display:flex;align-items:center;justify-content:space-between;padding:.95rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:color var(--tr)}
+.sitem:last-child{border-bottom:none}
+.sitem:hover .slbl{color:var(--accent)}
+.sileft{display:flex;align-items:center;gap:.7rem}
+.sico{font-size:1.1rem;width:24px;text-align:center}
+.slbl{font-size:.9rem;font-weight:500}
+.sarr{color:var(--text2);font-size:.8rem}
+
+/* SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-bottom:1rem}
+.skill-opt{padding:.65rem .8rem;background:var(--bg3);border:2px solid var(--border);border-radius:var(--rs);cursor:pointer;font-size:.83rem;font-weight:500;text-align:center;transition:all var(--tr)}
+.skill-opt:hover{border-color:rgba(232,255,71,.4)}
+.skill-opt.selected{border-color:var(--accent);background:rgba(232,255,71,.08);color:var(--accent);font-weight:700}
+
+/* STARS */
+.stars-input{display:flex;gap:.5rem}
+.star-btn{font-size:1.8rem;color:var(--border);cursor:pointer;transition:color .1s,transform .1s;line-height:1;border:none;background:transparent}
+.star-btn:hover{transform:scale(1.15)}
+.star-btn.lit{color:#ffd700}
+
+/* PHOTO UPLOAD */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--rs);padding:1.5rem;text-align:center;cursor:pointer;transition:all var(--tr)}
+.upload-zone:hover{border-color:var(--accent)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex;animation:fadeIn .2s ease}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:28px 28px 0 0;padding:1.5rem 1.5rem 2.5rem;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;animation:slideUp .32s cubic-bezier(.22,1,.36,1)}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 1.4rem}
+.modal-title{font-size:1.25rem;font-weight:800;margin-bottom:1.2rem}
+.modal-close{display:flex;align-items:center;gap:.4rem;color:var(--text2);border:none;background:transparent;font-size:.88rem;margin-bottom:1rem;transition:color var(--tr);cursor:pointer}
+.modal-close:hover{color:var(--text)}
+
+/* ADMIN */
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.2rem}
+.adstat{background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:1rem}
+.adstat .av{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:var(--accent)}
+.adstat .al{font-size:.78rem;color:var(--text2);margin-top:.1rem}
+.urow{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0;border-bottom:1px solid var(--border)}
+.urow:last-child{border-bottom:none}
+.uinfo{display:flex;align-items:center;gap:.7rem}
+.mini-av{width:36px;height:36px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem}
+
+/* SPECIAL */
+.special-banner{background:linear-gradient(135deg,rgba(71,255,184,.08),rgba(232,255,71,.05));border:1px solid rgba(71,255,184,.2);border-radius:var(--rl);padding:1.8rem 1.2rem;margin-bottom:1rem;text-align:center}
+.special-banner h2{font-size:1.35rem;font-weight:800;margin-bottom:.4rem}
+.special-banner p{font-size:.88rem;color:var(--text2);line-height:1.65}
+
+/* TOAST */
+.toast{position:fixed;top:76px;right:1rem;left:1rem;max-width:380px;margin:0 auto;background:var(--accent);color:#0a0a0a;padding:.85rem 1.2rem;border-radius:var(--rs);font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;z-index:999;display:none;box-shadow:0 8px 28px rgba(232,255,71,.35);animation:fadeUp .3s ease}
+.toast.show{display:block}
+
+/* DIVIDER */
+.divider{text-align:center;color:var(--text2);font-size:.82rem;margin:1rem 0;position:relative}
+.divider::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border)}
+.divider span{background:var(--card);padding:0 .8rem;position:relative}
+
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:.4rem;color:var(--text2);border:none;background:transparent;font-size:.88rem;margin-bottom:1.2rem;transition:color var(--tr);cursor:pointer}
+.back-btn:hover{color:var(--text)}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--text2)}
+.empty-icon{font-size:3rem;margin-bottom:.8rem}
+
+/* RESPONSIVE */
+@media(min-width:600px){
+  #app,#adminPanel{max-width:600px;margin:0 auto;box-shadow:var(--shadow)}
+  .bottom-nav{left:50%;transform:translateX(-50%);width:100%;max-width:600px}
+  .toast{left:auto;right:1rem;width:auto;min-width:260px}
+}
+</style>
 </head>
 <body>
 
-<!-- ===== TOAST ===== -->
 <div class="toast" id="toast"></div>
 
-<!-- ============================================================
-     SCREEN 1: ONBOARDING
-     ============================================================ -->
+<!-- ══════════════════ ONBOARDING ══════════════════ -->
 <div class="screen active" id="onboarding">
   <div class="ob-bg"></div>
-  <div class="ob-dots"></div>
+  <div class="ob-grid"></div>
 
-  <!-- Slide 0 -->
   <div class="ob-slide active" id="ob0">
-    <div class="ob-logo">
-      <div class="ob-logo-mark">G</div>
-      <div class="ob-logo-text">Gençİş</div>
-    </div>
+    <div class="ob-logo"><div class="ob-logo-mark">G</div><div class="ob-logo-text">Gençİş</div></div>
     <h2>Türkiye'nin Esnek<br>İş Gücü Platformu</h2>
     <p>Boş zamanını kazanca dönüştür. Öğrenci, genç veya ek gelir arayan herkes için anlık ve kısa süreli iş fırsatları.</p>
-    <div class="ob-nav-dots">
-      <div class="ob-nav-dot active"></div>
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot"></div>
-    </div>
+    <div class="ob-dots"><div class="ob-dot active"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
     <button class="btn btn-accent" onclick="nextSlide()">Başlayalım →</button>
   </div>
 
-  <!-- Slide 1 -->
   <div class="ob-slide" id="ob1">
     <div class="ob-icon">🎯</div>
     <h2>İşleri Bul,<br>Hemen Başla</h2>
     <p>Konumuna, becerilerine ve müsait olduğun saatlere göre işler sana geliyor. Başvur, onayla, çalış.</p>
-    <div class="ob-nav-dots">
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot active"></div>
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot"></div>
-    </div>
+    <div class="ob-dots"><div class="ob-dot"></div><div class="ob-dot active"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
     <button class="btn btn-accent" onclick="nextSlide()">Devam →</button>
   </div>
 
-  <!-- Slide 2 -->
   <div class="ob-slide" id="ob2">
     <div class="ob-icon">⭐</div>
     <h2>Puan Kazan,<br>Güven İnşa Et</h2>
     <p>Her tamamlanan görev sonrası puanlanırsın. Yüksek puanlar daha iyi fırsatlara erişim sağlar.</p>
-    <div class="ob-nav-dots">
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot active"></div>
-      <div class="ob-nav-dot"></div>
-    </div>
+    <div class="ob-dots"><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot active"></div><div class="ob-dot"></div></div>
     <button class="btn btn-accent" onclick="nextSlide()">Devam →</button>
   </div>
 
-  <!-- Slide 3 -->
   <div class="ob-slide" id="ob3">
     <div class="ob-icon">💰</div>
     <h2>Güvenli &<br>Şeffaf Ödeme</h2>
     <p>Görev tamamlandığında ödemen otomatik olarak hesabına aktarılır. Hızlı, güvenli, şeffaf.</p>
-    <div class="ob-nav-dots">
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot"></div>
-      <div class="ob-nav-dot active"></div>
-    </div>
+    <div class="ob-dots"><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot active"></div></div>
     <button class="btn btn-accent" onclick="goToAuth()">Hemen Başla 🚀</button>
   </div>
 </div>
 
-<!-- ============================================================
-     SCREEN 2: AUTH
-     ============================================================ -->
+<!-- ══════════════════ AUTH ══════════════════ -->
 <div class="screen" id="auth">
   <div class="auth-topbar">
-    <div class="topbar-logo">
-      <div class="topbar-logo-mark">G</div>
-      <div class="topbar-logo-text">Gençİş</div>
-    </div>
-    <button class="icon-btn" data-theme-btn onclick="toggleTheme()">🌙</button>
+    <div class="tl"><div class="tlm">G</div><div class="tlt">Gençİş</div></div>
+    <button class="icon-btn" onclick="toggleTheme()">🌙</button>
   </div>
 
   <div class="auth-box">
-
-    <!-- LOGIN VIEW -->
-    <div id="viewLogin">
-      <div style="text-align:center; margin-bottom:1.5rem;">
-        <h2 style="font-size:1.55rem;">Tekrar Hoş Geldin 👋</h2>
-        <p style="color:var(--text2); font-size:0.88rem; margin-top:0.4rem;">Hesabına giriş yap</p>
+    <!-- LOGIN -->
+    <div id="vLogin">
+      <div style="text-align:center;margin-bottom:1.5rem">
+        <h2 style="font-size:1.55rem">Tekrar Hoş Geldin 👋</h2>
+        <p style="color:var(--text2);font-size:.88rem;margin-top:.4rem">Hesabına giriş yap</p>
       </div>
-      <div class="alert alert-success" id="loginSuccess" style="display:none;">
-        <span class="alert-title">✅ Giriş Onaylandı!</span>
-        <span class="alert-sub">Profiline yönlendiriliyorsun…</span>
+      <div class="alert alert-ok" id="loginOk" style="display:none">
+        <span class="at">✅ Giriş Onaylandı!</span>
+        <span class="as">Profiline yönlendiriliyorsun…</span>
       </div>
-      <div class="form-group">
-        <label>Kullanıcı Adı</label>
-        <input class="form-control" type="text" id="loginName" placeholder="Kullanıcı adını gir">
-      </div>
-      <div class="form-group">
-        <label>Şifre</label>
-        <input class="form-control" type="password" id="loginPass" placeholder="••••••••"
-          onkeydown="if(event.key==='Enter') doLogin()">
-      </div>
+      <div class="form-group"><label>Kullanıcı Adı</label><input class="fc" type="text" id="lName" placeholder="Kullanıcı adını gir"></div>
+      <div class="form-group"><label>Şifre</label><input class="fc" type="password" id="lPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
       <button class="btn btn-accent btn-full" onclick="doLogin()">Giriş Yap</button>
       <div class="divider"><span>veya</span></div>
-      <button class="btn btn-outline btn-full" onclick="showRegisterView()">Hesap Oluştur</button>
-      <div style="text-align:center; margin-top:1.2rem;">
-        <span style="font-size:0.83rem; color:var(--text2); cursor:pointer;" onclick="showAdminView()">🔐 Admin Girişi</span>
-      </div>
+      <button class="btn btn-outline btn-full" style="margin-top:.5rem" onclick="showV('vReg')">Hesap Oluştur</button>
+      <div style="text-align:center;margin-top:1.2rem"><span style="font-size:.83rem;color:var(--text2);cursor:pointer" onclick="showV('vAdmin')">🔐 Admin Girişi</span></div>
     </div>
 
-    <!-- REGISTER VIEW -->
-    <div id="viewRegister" style="display:none;">
-      <button class="back-btn" onclick="showLoginView()">← Geri</button>
-      <h2 style="font-size:1.4rem; margin-bottom:1.5rem;">Hesap Oluştur</h2>
-      <div class="alert alert-success" id="registerSuccess" style="display:none;">
-        <span class="alert-title">🎉 Üyelik Tamamlandı!</span>
-        <span class="alert-sub">Profilin oluşturuldu, hoş geldin!</span>
+    <!-- REGISTER -->
+    <div id="vReg" style="display:none">
+      <button class="back-btn" onclick="showV('vLogin')">← Geri</button>
+      <h2 style="font-size:1.4rem;margin-bottom:1.5rem">Hesap Oluştur</h2>
+      <div class="alert alert-ok" id="regOk" style="display:none">
+        <span class="at">🎉 Üyelik Tamamlandı!</span>
+        <span class="as">Profilin oluşturuldu, hoş geldin!</span>
       </div>
-      <div class="form-group">
-        <label>Ad Soyad <span class="required">*</span></label>
-        <input class="form-control" type="text" id="regName" placeholder="Adın ve soyadın">
-      </div>
-      <div class="form-group">
-        <label>Kullanıcı Adı <span class="required">*</span></label>
-        <input class="form-control" type="text" id="regUser" placeholder="benzersiz_kullanici_adi">
+      <div class="form-group"><label>Ad Soyad <span class="req">*</span></label><input class="fc" type="text" id="rName" placeholder="Adın ve soyadın"></div>
+      <div class="form-group"><label>Kullanıcı Adı <span class="req">*</span></label><input class="fc" type="text" id="rUser" placeholder="kullanici_adi"></div>
+      <div class="form-row">
+        <div class="form-group"><label>E-posta <span class="req">*</span></label><input class="fc" type="email" id="rEmail" placeholder="email@ornek.com"></div>
+        <div class="form-group"><label>Telefon</label><input class="fc" type="tel" id="rPhone" placeholder="05XX XXX XX XX"></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>E-posta <span class="required">*</span></label>
-          <input class="form-control" type="email" id="regEmail" placeholder="email@örnek.com">
-        </div>
-        <div class="form-group">
-          <label>Telefon</label>
-          <input class="form-control" type="tel" id="regPhone" placeholder="05XX XXX XX XX">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>İl <span class="required">*</span></label>
-          <select class="form-control city-select" id="regCity"></select>
-        </div>
-        <div class="form-group">
-          <label>Doğum Tarihi</label>
-          <input class="form-control" type="date" id="regBirth">
-        </div>
+        <div class="form-group"><label>İl <span class="req">*</span></label><select class="fc city-sel" id="rCity"></select></div>
+        <div class="form-group"><label>Doğum Tarihi</label><input class="fc" type="date" id="rBirth"></div>
       </div>
       <div class="form-group">
-        <label>Eğitim Düzeyi <span class="required">*</span></label>
-        <select class="form-control" id="regEdu">
+        <label>Eğitim Düzeyi <span class="req">*</span></label>
+        <select class="fc" id="rEdu">
           <option value="">Seç…</option>
-          <option>İlköğretim</option>
-          <option>Lise (Devam Ediyor)</option>
-          <option>Lise Mezunu</option>
-          <option>Ön Lisans (Devam Ediyor)</option>
-          <option>Ön Lisans Mezunu</option>
-          <option>Lisans (Devam Ediyor)</option>
-          <option>Lisans Mezunu</option>
-          <option>Yüksek Lisans</option>
-          <option>Doktora</option>
+          <option>İlköğretim</option><option>Lise (Devam Ediyor)</option><option>Lise Mezunu</option>
+          <option>Ön Lisans (Devam Ediyor)</option><option>Ön Lisans Mezunu</option>
+          <option>Lisans (Devam Ediyor)</option><option>Lisans Mezunu</option>
+          <option>Yüksek Lisans</option><option>Doktora</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Şifre <span class="required">*</span></label>
-        <input class="form-control" type="password" id="regPass" placeholder="En az 6 karakter">
-      </div>
+      <div class="form-group"><label>Şifre <span class="req">*</span></label><input class="fc" type="password" id="rPass" placeholder="En az 6 karakter"></div>
       <button class="btn btn-accent btn-full" onclick="doRegister()">Kaydol 🎉</button>
     </div>
 
-    <!-- ADMIN VIEW -->
-    <div id="viewAdmin" style="display:none;">
-      <button class="back-btn" onclick="showLoginView()">← Geri</button>
-      <h2 style="font-size:1.35rem; margin-bottom:1.5rem;">🔐 Admin Girişi</h2>
-      <div class="form-group">
-        <label>Admin Kullanıcı Adı</label>
-        <input class="form-control" type="text" id="adminUser" placeholder="admin">
-      </div>
-      <div class="form-group">
-        <label>Şifre</label>
-        <input class="form-control" type="password" id="adminPass" placeholder="••••••••"
-          onkeydown="if(event.key==='Enter') doAdminLogin()">
-      </div>
+    <!-- ADMIN -->
+    <div id="vAdmin" style="display:none">
+      <button class="back-btn" onclick="showV('vLogin')">← Geri</button>
+      <h2 style="font-size:1.35rem;margin-bottom:1.5rem">🔐 Admin Girişi</h2>
+      <div class="form-group"><label>Kullanıcı Adı</label><input class="fc" type="text" id="aUser" placeholder="admin"></div>
+      <div class="form-group"><label>Şifre</label><input class="fc" type="password" id="aPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdminLogin()"></div>
       <button class="btn btn-accent btn-full" onclick="doAdminLogin()">Admin Olarak Giriş Yap</button>
     </div>
-
   </div>
 </div>
 
-<!-- ============================================================
-     SCREEN 3: APP
-     ============================================================ -->
+<!-- ══════════════════ APP ══════════════════ -->
 <div class="screen" id="app">
-
-  <!-- TOP BAR -->
   <div class="topbar">
-    <div class="topbar-logo">
-      <div class="topbar-logo-mark">G</div>
-      <div class="topbar-logo-text">Gençİş</div>
-    </div>
-    <div class="topbar-right">
-      <button class="icon-btn" data-theme-btn onclick="toggleTheme()">🌙</button>
-      <button class="avatar-btn" onclick="goPage('profile')" id="userAvatar">A</button>
+    <div class="tl"><div class="tlm">G</div><div class="tlt">Gençİş</div></div>
+    <div class="tr2">
+      <button class="icon-btn" onclick="toggleTheme()">🌙</button>
+      <button class="av-btn" onclick="goPage('profile')" id="userAv">A</button>
     </div>
   </div>
 
-  <!-- CONTENT AREA -->
   <div class="content">
 
-    <!-- PAGE: HOME -->
+    <!-- HOME -->
     <div class="page active" id="page-home">
-      <p class="greeting-sub">Merhaba,</p>
-      <h2 class="greeting-name" id="welcomeName">Kullanıcı 👋</h2>
-
+      <p style="color:var(--text2);font-size:.88rem">Merhaba,</p>
+      <h2 style="font-size:1.55rem;font-weight:800;margin:.1rem 0 1rem" id="wName">Kullanıcı 👋</h2>
       <div class="stat-row">
-        <div class="stat-box">
-          <div class="stat-val">12</div>
-          <div class="stat-lbl">Tamamlanan</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val">4.8</div>
-          <div class="stat-lbl">Puanım</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-val">₺2.4K</div>
-          <div class="stat-lbl">Kazancım</div>
-        </div>
+        <div class="stat-box"><div class="sv">12</div><div class="sl">Tamamlanan</div></div>
+        <div class="stat-box"><div class="sv">4.8</div><div class="sl">Puanım</div></div>
+        <div class="stat-box"><div class="sv">₺2.4K</div><div class="sl">Kazancım</div></div>
       </div>
-
       <div class="search-bar">
-        <span class="search-icon">🔍</span>
-        <input type="text" placeholder="İş ara (başlık, şehir, beceri…)" id="homeSearch" oninput="filterJobs()">
+        <span style="color:var(--text2)">🔍</span>
+        <input type="text" placeholder="İş ara (başlık, şehir, beceri…)" id="srch" oninput="filterJobs()">
       </div>
-
-      <div class="filter-bar" id="filterBar"></div>
+      <div class="filter-bar" id="fbar"></div>
       <div id="jobList"></div>
     </div>
 
-    <!-- PAGE: POST JOB (EMPLOYER) -->
+    <!-- POST JOB -->
     <div class="page" id="page-jobs">
-      <h1 class="page-title">İş İlanı Ver</h1>
-
+      <h1 class="ptitle">İş İlanı Ver</h1>
       <div class="card">
-        <div class="form-group">
-          <label>İş Başlığı <span class="required">*</span></label>
-          <input class="form-control" type="text" id="jobTitle" placeholder="Örn: Depo Yükleme Elemanı">
-        </div>
-
+        <div class="form-group"><label>İş Başlığı <span class="req">*</span></label><input class="fc" type="text" id="jTitle" placeholder="Örn: Depo Yükleme Elemanı"></div>
         <div class="form-row">
           <div class="form-group">
             <label>Kategori</label>
-            <select class="form-control" id="jobCat">
-              <option>Depo & Lojistik</option>
-              <option>Servis & Garsonluk</option>
-              <option>Etkinlik & Organizasyon</option>
-              <option>Ofis & Büro</option>
-              <option>Staj</option>
-              <option>Fabrika & Üretim</option>
-              <option>Temizlik</option>
-              <option>Güvenlik</option>
-              <option>Promosyon & Tanıtım</option>
-              <option>IT & Teknoloji</option>
-              <option>Diğer</option>
+            <select class="fc" id="jCat">
+              <option>Depo & Lojistik</option><option>Servis & Garsonluk</option><option>Etkinlik & Organizasyon</option>
+              <option>Ofis & Büro</option><option>Staj</option><option>Fabrika & Üretim</option>
+              <option>Temizlik</option><option>Güvenlik</option><option>Promosyon & Tanıtım</option>
+              <option>IT & Teknoloji</option><option>Diğer</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Şehir <span class="required">*</span></label>
-            <select class="form-control city-select" id="jobCity"></select>
-          </div>
+          <div class="form-group"><label>Şehir <span class="req">*</span></label><select class="fc city-sel" id="jCity"></select></div>
         </div>
-
         <div class="form-row">
-          <div class="form-group">
-            <label>Günlük Ücret (₺) <span class="required">*</span></label>
-            <input class="form-control" type="number" id="jobWage" placeholder="500" min="0">
-          </div>
+          <div class="form-group"><label>Günlük Ücret (₺) <span class="req">*</span></label><input class="fc" type="number" id="jWage" placeholder="500" min="0"></div>
           <div class="form-group">
             <label>Çalışma Süresi</label>
-            <select class="form-control" id="jobDuration">
-              <option>1 Gün</option>
-              <option>2–3 Gün</option>
-              <option>1 Hafta</option>
-              <option>2 Hafta</option>
-              <option>1 Ay</option>
-              <option>3 Ay (Staj)</option>
-              <option>Uzun Dönem</option>
+            <select class="fc" id="jDur">
+              <option>1 Gün</option><option>2–3 Gün</option><option>1 Hafta</option>
+              <option>2 Hafta</option><option>1 Ay</option><option>3 Ay (Staj)</option><option>Uzun Dönem</option>
             </select>
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label>Başlangıç Saati</label>
-            <select class="form-control">
-              <option>Sabah 08:00</option>
-              <option>Sabah 09:00</option>
-              <option>Öğle 12:00</option>
-              <option>Öğleden Sonra 14:00</option>
-              <option>Akşam 17:00</option>
-              <option>Akşam 18:00</option>
-              <option>Gece 22:00</option>
-              <option>Esnek</option>
+            <select class="fc">
+              <option>Sabah 08:00</option><option>Sabah 09:00</option><option>Öğle 12:00</option>
+              <option>Öğleden Sonra 14:00</option><option>Akşam 17:00</option><option>Akşam 18:00</option>
+              <option>Gece 22:00</option><option>Esnek</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Kaç Kişi Aranıyor?</label>
-            <input class="form-control" type="number" placeholder="5" min="1">
-          </div>
+          <div class="form-group"><label>Kaç Kişi?</label><input class="fc" type="number" placeholder="5" min="1"></div>
         </div>
-
         <div class="form-group">
           <label>Tercih Edilen Eğitim</label>
-          <select class="form-control">
-            <option>Fark etmez</option>
-            <option>Lise</option>
-            <option>Ön Lisans</option>
-            <option>Lisans</option>
-            <option>Lisans + Üzeri</option>
-          </select>
+          <select class="fc"><option>Fark etmez</option><option>Lise</option><option>Ön Lisans</option><option>Lisans</option><option>Lisans + Üzeri</option></select>
         </div>
-
         <div class="form-group">
           <label>Gereken Beceriler</label>
-          <div class="skills-grid" id="employerSkills">
-            <div class="skill-option" onclick="toggleSkill(this)">💪 Fiziksel Dayanıklılık</div>
-            <div class="skill-option" onclick="toggleSkill(this)">💻 Bilgisayar (Temel)</div>
-            <div class="skill-option" onclick="toggleSkill(this)">📊 Microsoft Office</div>
-            <div class="skill-option" onclick="toggleSkill(this)">🤝 Müşteri İlişkileri</div>
-            <div class="skill-option" onclick="toggleSkill(this)">👥 Ekip Çalışması</div>
-            <div class="skill-option" onclick="toggleSkill(this)">🚗 Ehliyet (B)</div>
-            <div class="skill-option" onclick="toggleSkill(this)">🇬🇧 İngilizce</div>
-            <div class="skill-option" onclick="toggleSkill(this)">🏭 Forklift Op.</div>
-            <div class="skill-option" onclick="toggleSkill(this)">🍽️ Gıda Hijyeni</div>
-            <div class="skill-option" onclick="toggleSkill(this)">📱 Sosyal Medya</div>
-            <div class="skill-option" onclick="toggleSkill(this)">💰 Muhasebe</div>
-            <div class="skill-option" onclick="toggleSkill(this)">🎯 Satış & İkna</div>
+          <div class="skills-grid" id="empSkills">
+            <div class="skill-opt" onclick="toggleSkill(this)">💪 Fiziksel Dayanıklılık</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">💻 Bilgisayar (Temel)</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">📊 Microsoft Office</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">🤝 Müşteri İlişkileri</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">👥 Ekip Çalışması</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">🚗 Ehliyet (B)</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">🇬🇧 İngilizce</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">🏭 Forklift Op.</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">🍽️ Gıda Hijyeni</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">📱 Sosyal Medya</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">💰 Muhasebe</div>
+            <div class="skill-opt" onclick="toggleSkill(this)">🎯 Satış & İkna</div>
           </div>
         </div>
-
         <div class="form-group">
           <label>İlan Fotoğrafı (Opsiyonel)</label>
-          <div class="photo-upload-zone" onclick="triggerPhotoUpload()">
-            <div class="upload-icon">📷</div>
-            <div class="upload-label">Fotoğraf yüklemek için tıkla</div>
+          <div class="upload-zone" onclick="document.getElementById('pUpload').click()">
+            <div style="font-size:2rem;margin-bottom:.5rem">📷</div>
+            <div style="font-size:.85rem;color:var(--text2)">Fotoğraf yüklemek için tıkla</div>
           </div>
-          <input type="file" id="photoUpload" accept="image/*" style="display:none" onchange="previewPhoto(event)">
-          <div id="photoPreview"></div>
+          <input type="file" id="pUpload" accept="image/*" style="display:none" onchange="previewPhoto(event)">
+          <div id="pPreview"></div>
         </div>
-
-        <div class="form-group">
-          <label>İş Açıklaması & Notlar</label>
-          <textarea class="form-control" id="jobDesc" rows="3" placeholder="İş detayları, gereksinimler, önemli notlar…"></textarea>
-        </div>
-
+        <div class="form-group"><label>İş Açıklaması</label><textarea class="fc" id="jDesc" rows="3" placeholder="İş detayları, gereksinimler…"></textarea></div>
         <button class="btn btn-accent btn-full" onclick="postJob()">İlanı Yayınla 🚀</button>
       </div>
-
-      <h2 style="font-size:1.1rem; font-weight:700; margin-bottom:0.8rem; font-family:'Syne',sans-serif;">Aktif İlanlarım</h2>
-      <div id="myPostedJobs"></div>
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:.8rem;font-family:'Syne',sans-serif">Aktif İlanlarım</h2>
+      <div id="myJobs"></div>
     </div>
 
-    <!-- PAGE: SPECIAL / DISABILITY -->
+    <!-- SPECIAL -->
     <div class="page" id="page-special">
       <div class="special-banner">
-        <div class="special-banner-icon">♿ 💙</div>
+        <div style="font-size:3rem;margin-bottom:.7rem">♿ 💙</div>
         <h2>Engelsiz Fırsatlar</h2>
         <p>Fiziksel, görsel, işitsel veya zihinsel engeli olan bireyler için özel olarak uyarlanmış iş pozisyonları. Tüm işverenler engel durumunu biliyor ve destekliyor.</p>
       </div>
-      <div class="card" style="background: linear-gradient(135deg,rgba(71,255,184,0.05),rgba(232,255,71,0.03)); border-color: rgba(71,255,184,0.2);">
-        <p style="font-size:0.88rem; line-height:1.75; color:var(--text2);">
-          Bu sayfadaki tüm pozisyonlar; <strong style="color:var(--text);">uzaktan çalışma, esnek saat, yardımcı teknoloji desteği</strong> veya erişilebilir fiziksel ortam gibi özellikler içermektedir.
-          Engel teşvik primleri ve devlet destekleri hakkında destek hattımızdan bilgi alabilirsiniz.
-        </p>
+      <div class="card" style="background:linear-gradient(135deg,rgba(71,255,184,.05),rgba(232,255,71,.03));border-color:rgba(71,255,184,.2)">
+        <p style="font-size:.88rem;line-height:1.75;color:var(--text2)">Bu sayfadaki pozisyonlar <strong style="color:var(--text)">uzaktan çalışma, esnek saat ve yardımcı teknoloji desteği</strong> içermektedir. Engel teşvik primleri için destek hattımızla iletişime geçin.</p>
       </div>
-      <div id="specialJobList"></div>
+      <div id="specList"></div>
     </div>
 
-    <!-- PAGE: PROFILE -->
+    <!-- PROFILE -->
     <div class="page" id="page-profile">
       <div class="profile-hero">
-        <div class="profile-avatar" id="profileAvatarBig">A</div>
-        <div class="profile-name" id="profileNameBig">Kullanıcı Adı</div>
-        <div class="profile-meta" id="profileLocEdu">Şehir • Eğitim Düzeyi</div>
-        <div class="profile-stars">★★★★★</div>
-        <div class="profile-score">4.8 / 5.0 ortalama puan</div>
+        <div class="pav" id="pAvBig">A</div>
+        <div class="pname" id="pNameBig">Kullanıcı</div>
+        <div class="pmeta" id="pLocEdu">Şehir • Eğitim</div>
+        <div class="pstars">★★★★★</div>
+        <div class="pscore">4.8 / 5.0 ortalama puan</div>
       </div>
-
       <div class="stat-row">
-        <div class="stat-box"><div class="stat-val">12</div><div class="stat-lbl">Görev</div></div>
-        <div class="stat-box"><div class="stat-val">₺2.4K</div><div class="stat-lbl">Kazanç</div></div>
-        <div class="stat-box"><div class="stat-val">%98</div><div class="stat-lbl">Başarı</div></div>
+        <div class="stat-box"><div class="sv">12</div><div class="sl">Görev</div></div>
+        <div class="stat-box"><div class="sv">₺2.4K</div><div class="sl">Kazanç</div></div>
+        <div class="stat-box"><div class="sv">%98</div><div class="sl">Başarı</div></div>
       </div>
-
-      <!-- Completed Jobs -->
       <div class="card">
-        <div class="section-title">Tamamlanan İşler</div>
-        <div class="user-row">
-          <div>
-            <div style="font-weight:600; font-size:0.9rem;">Depo Yükleme — Migros</div>
-            <div style="font-size:0.78rem; color:var(--text2);">15 Ocak 2026 · 2 gün · ₺1.500</div>
-          </div>
-          <span class="tag tag-green">★ 5.0</span>
-        </div>
-        <div class="user-row">
-          <div>
-            <div style="font-weight:600; font-size:0.9rem;">Etkinlik Görevlisi — Kongre Merkezi</div>
-            <div style="font-size:0.78rem; color:var(--text2);">8 Ocak 2026 · 1 gün · ₺600</div>
-          </div>
-          <span class="tag tag-green">★ 4.8</span>
-        </div>
-        <div class="user-row">
-          <div>
-            <div style="font-weight:600; font-size:0.9rem;">Ofis Destek — Garanti BBVA</div>
-            <div style="font-size:0.78rem; color:var(--text2);">20 Aralık 2025 · 3 gün · ₺1.950</div>
-          </div>
-          <span class="tag tag-green">★ 5.0</span>
-        </div>
+        <div class="stitle">Tamamlanan İşler</div>
+        <div class="urow"><div><div style="font-weight:600;font-size:.9rem">Depo Yükleme — Migros</div><div style="font-size:.78rem;color:var(--text2)">15 Ocak 2026 · 2 gün · ₺1.500</div></div><span class="tag tag-g">★ 5.0</span></div>
+        <div class="urow"><div><div style="font-weight:600;font-size:.9rem">Etkinlik Görevlisi — Kongre Mrk.</div><div style="font-size:.78rem;color:var(--text2)">8 Ocak 2026 · 1 gün · ₺600</div></div><span class="tag tag-g">★ 4.8</span></div>
+        <div class="urow"><div><div style="font-weight:600;font-size:.9rem">Ofis Destek — Garanti BBVA</div><div style="font-size:.78rem;color:var(--text2)">20 Aralık 2025 · 3 gün · ₺1.950</div></div><span class="tag tag-g">★ 5.0</span></div>
       </div>
-
-      <!-- Employer Reviews -->
       <div class="card">
-        <div class="section-title">İşveren Yorumları</div>
-        <div style="padding:0.8rem 0; border-bottom:1px solid var(--border);">
-          <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
-            <div style="font-weight:600; font-size:0.88rem;">Migros Lojistik</div>
-            <div style="color:#ffd700; font-size:0.85rem;">★★★★★</div>
-          </div>
-          <div style="font-size:0.83rem; color:var(--text2);">"Çok çalışkan ve güvenilir. Tekrar çalışmak isteriz."</div>
+        <div class="stitle">İşveren Yorumları</div>
+        <div style="padding:.8rem 0;border-bottom:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><div style="font-weight:600;font-size:.88rem">Migros Lojistik</div><div style="color:#ffd700;font-size:.85rem">★★★★★</div></div>
+          <div style="font-size:.83rem;color:var(--text2)">"Çok çalışkan ve güvenilir. Tekrar çalışmak isteriz."</div>
         </div>
-        <div style="padding:0.8rem 0; border-bottom:1px solid var(--border);">
-          <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
-            <div style="font-weight:600; font-size:0.88rem;">İstanbul Kongre Merkezi</div>
-            <div style="color:#ffd700; font-size:0.85rem;">★★★★☆</div>
-          </div>
-          <div style="font-size:0.83rem; color:var(--text2);">"Zamanında geldi, görevini başarıyla tamamladı."</div>
+        <div style="padding:.8rem 0;border-bottom:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><div style="font-weight:600;font-size:.88rem">İstanbul Kongre Merkezi</div><div style="color:#ffd700;font-size:.85rem">★★★★☆</div></div>
+          <div style="font-size:.83rem;color:var(--text2)">"Zamanında geldi, görevini başarıyla tamamladı."</div>
         </div>
-        <div style="padding:0.8rem 0;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
-            <div style="font-weight:600; font-size:0.88rem;">Garanti BBVA</div>
-            <div style="color:#ffd700; font-size:0.85rem;">★★★★★</div>
-          </div>
-          <div style="font-size:0.83rem; color:var(--text2);">"Düzenli, titiz ve uyumlu bir çalışan. Teşekkürler."</div>
+        <div style="padding:.8rem 0">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.3rem"><div style="font-weight:600;font-size:.88rem">Garanti BBVA</div><div style="color:#ffd700;font-size:.85rem">★★★★★</div></div>
+          <div style="font-size:.83rem;color:var(--text2)">"Düzenli, titiz ve uyumlu bir çalışan."</div>
         </div>
       </div>
-
-      <!-- Settings -->
       <div class="card">
-        <div class="section-title">Hesap Ayarları</div>
-        <div class="settings-list">
-          <div class="settings-item" onclick="openModal('editProfileModal')">
-            <div class="settings-item-left">
-              <span class="settings-icon">✏️</span>
-              <span class="settings-label">Profili Düzenle</span>
-            </div>
-            <span class="settings-arrow">›</span>
-          </div>
-          <div class="settings-item" onclick="openModal('changePassModal')">
-            <div class="settings-item-left">
-              <span class="settings-icon">🔑</span>
-              <span class="settings-label">Şifre Değiştir</span>
-            </div>
-            <span class="settings-arrow">›</span>
-          </div>
-          <div class="settings-item" onclick="openModal('changeEmailModal')">
-            <div class="settings-item-left">
-              <span class="settings-icon">📧</span>
-              <span class="settings-label">E-posta Değiştir</span>
-            </div>
-            <span class="settings-arrow">›</span>
-          </div>
-          <div class="settings-item" onclick="openModal('changePhoneModal')">
-            <div class="settings-item-left">
-              <span class="settings-icon">📱</span>
-              <span class="settings-label">Telefon Numarası Değiştir</span>
-            </div>
-            <span class="settings-arrow">›</span>
-          </div>
-          <div class="settings-item" onclick="toggleTheme()">
-            <div class="settings-item-left">
-              <span class="settings-icon">🎨</span>
-              <span class="settings-label">Tema Değiştir (Koyu / Açık)</span>
-            </div>
-            <span class="settings-arrow">›</span>
-          </div>
-          <div class="settings-item" style="color:var(--red);" onclick="logout()">
-            <div class="settings-item-left">
-              <span class="settings-icon">🚪</span>
-              <span class="settings-label" style="color:var(--red);">Çıkış Yap</span>
-            </div>
-            <span class="settings-arrow" style="color:var(--red);">›</span>
-          </div>
-        </div>
+        <div class="stitle">Hesap Ayarları</div>
+        <div class="sitem" onclick="openM('mEditProf')"><div class="sileft"><span class="sico">✏️</span><span class="slbl">Profili Düzenle</span></div><span class="sarr">›</span></div>
+        <div class="sitem" onclick="openM('mPass')"><div class="sileft"><span class="sico">🔑</span><span class="slbl">Şifre Değiştir</span></div><span class="sarr">›</span></div>
+        <div class="sitem" onclick="openM('mEmail')"><div class="sileft"><span class="sico">📧</span><span class="slbl">E-posta Değiştir</span></div><span class="sarr">›</span></div>
+        <div class="sitem" onclick="openM('mPhone')"><div class="sileft"><span class="sico">📱</span><span class="slbl">Telefon Numarası Değiştir</span></div><span class="sarr">›</span></div>
+        <div class="sitem" onclick="toggleTheme()"><div class="sileft"><span class="sico">🎨</span><span class="slbl">Tema Değiştir (Koyu / Açık)</span></div><span class="sarr">›</span></div>
+        <div class="sitem" style="color:var(--red)" onclick="logout()"><div class="sileft"><span class="sico">🚪</span><span class="slbl" style="color:var(--red)">Çıkış Yap</span></div><span class="sarr" style="color:var(--red)">›</span></div>
       </div>
-
     </div>
+
   </div><!-- /content -->
 
-  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
-    <button class="nav-item active" onclick="goPage('home')">
-      <span class="nav-icon">🏠</span>Ana Sayfa
-    </button>
-    <button class="nav-item" onclick="goPage('jobs')">
-      <span class="nav-icon">📋</span>İlan Ver
-    </button>
-    <button class="nav-item" onclick="goPage('special')">
-      <span class="nav-icon">♿</span>Engelsiz
-    </button>
-    <button class="nav-item" onclick="goPage('profile')">
-      <span class="nav-icon">👤</span>Profil
-    </button>
+    <button class="nav-item active" onclick="goPage('home')"><span class="ni">🏠</span>Ana Sayfa</button>
+    <button class="nav-item" onclick="goPage('jobs')"><span class="ni">📋</span>İlan Ver</button>
+    <button class="nav-item" onclick="goPage('special')"><span class="ni">♿</span>Engelsiz</button>
+    <button class="nav-item" onclick="goPage('profile')"><span class="ni">👤</span>Profil</button>
   </nav>
+</div>
 
-</div><!-- /app -->
-
-<!-- ============================================================
-     SCREEN 4: ADMIN PANEL
-     ============================================================ -->
+<!-- ══════════════════ ADMIN ══════════════════ -->
 <div class="screen" id="adminPanel">
   <div class="topbar">
-    <div class="topbar-logo">
-      <div class="topbar-logo-mark" style="background:var(--red); color:#fff;">A</div>
-      <div class="topbar-logo-text">Admin Paneli</div>
-    </div>
-    <div class="topbar-right">
-      <button class="icon-btn" data-theme-btn onclick="toggleTheme()">🌙</button>
-      <button class="btn btn-outline btn-sm" onclick="logout()">Çıkış</button>
-    </div>
+    <div class="tl"><div class="tlm" style="background:var(--red);color:#fff">A</div><div class="tlt">Admin Paneli</div></div>
+    <div class="tr2"><button class="icon-btn" onclick="toggleTheme()">🌙</button><button class="btn btn-outline btn-sm" onclick="logout()">Çıkış</button></div>
   </div>
   <div class="content">
-    <h1 class="page-title">Genel Bakış</h1>
-
+    <h1 class="ptitle">Genel Bakış</h1>
     <div class="admin-grid">
-      <div class="admin-stat">
-        <div class="admin-stat-val">247</div>
-        <div class="admin-stat-lbl">Toplam Kullanıcı</div>
-      </div>
-      <div class="admin-stat">
-        <div class="admin-stat-val">89</div>
-        <div class="admin-stat-lbl">Aktif İlan</div>
-      </div>
-      <div class="admin-stat">
-        <div class="admin-stat-val">₺128K</div>
-        <div class="admin-stat-lbl">Toplam İşlem</div>
-      </div>
-      <div class="admin-stat">
-        <div class="admin-stat-val">14</div>
-        <div class="admin-stat-lbl">Bu Ay Görev</div>
-      </div>
+      <div class="adstat"><div class="av">247</div><div class="al">Toplam Kullanıcı</div></div>
+      <div class="adstat"><div class="av">89</div><div class="al">Aktif İlan</div></div>
+      <div class="adstat"><div class="av">₺128K</div><div class="al">Toplam İşlem</div></div>
+      <div class="adstat"><div class="av">14</div><div class="al">Bu Ay Görev</div></div>
     </div>
-
     <div class="card">
-      <div class="section-title">Son İşlemler</div>
-      <div class="user-row">
-        <div class="user-info">
-          <div class="mini-avatar" style="background:rgba(232,255,71,0.15); color:var(--accent);">A</div>
-          <div>
-            <div style="font-weight:600;font-size:0.88rem;">Ahmet Yılmaz</div>
-            <div style="font-size:0.75rem;color:var(--text2);">Depo Görevi — ₺750 ödendi</div>
-          </div>
-        </div>
-        <span class="tag tag-green">Tamamlandı</span>
-      </div>
-      <div class="user-row">
-        <div class="user-info">
-          <div class="mini-avatar" style="background:rgba(71,255,184,0.15); color:var(--accent2);">Z</div>
-          <div>
-            <div style="font-weight:600;font-size:0.88rem;">Zeynep Kaya</div>
-            <div style="font-size:0.75rem;color:var(--text2);">Etkinlik Görevi — ₺600 ödendi</div>
-          </div>
-        </div>
-        <span class="tag tag-green">Tamamlandı</span>
-      </div>
-      <div class="user-row">
-        <div class="user-info">
-          <div class="mini-avatar" style="background:rgba(255,71,87,0.15); color:var(--red);">M</div>
-          <div>
-            <div style="font-weight:600;font-size:0.88rem;">Mehmet Demir</div>
-            <div style="font-size:0.75rem;color:var(--text2);">Staj Başvurusu</div>
-          </div>
-        </div>
-        <span class="tag tag-accent">Bekliyor</span>
-      </div>
+      <div class="stitle">Son İşlemler</div>
+      <div class="urow"><div class="uinfo"><div class="mini-av" style="background:rgba(232,255,71,.15);color:var(--accent)">A</div><div><div style="font-weight:600;font-size:.88rem">Ahmet Yılmaz</div><div style="font-size:.75rem;color:var(--text2)">Depo Görevi — ₺750 ödendi</div></div></div><span class="tag tag-g">Tamamlandı</span></div>
+      <div class="urow"><div class="uinfo"><div class="mini-av" style="background:rgba(71,255,184,.15);color:var(--accent2)">Z</div><div><div style="font-weight:600;font-size:.88rem">Zeynep Kaya</div><div style="font-size:.75rem;color:var(--text2)">Etkinlik Görevi — ₺600 ödendi</div></div></div><span class="tag tag-g">Tamamlandı</span></div>
+      <div class="urow"><div class="uinfo"><div class="mini-av" style="background:rgba(255,71,87,.15);color:var(--red)">M</div><div><div style="font-weight:600;font-size:.88rem">Mehmet Demir</div><div style="font-size:.75rem;color:var(--text2)">Staj Başvurusu</div></div></div><span class="tag tag-a">Bekliyor</span></div>
     </div>
-
     <div class="card">
-      <div class="section-title">Kullanıcı Yönetimi</div>
-      <div id="adminUserList">
-        <div class="user-row">
-          <div class="user-info">
-            <div class="mini-avatar">A</div>
-            <div>
-              <div style="font-weight:600;font-size:0.88rem;">Ahmet Yılmaz</div>
-              <div style="font-size:0.75rem;color:var(--text2);">İstanbul · 12 görev · ★ 4.8</div>
-            </div>
-          </div>
-          <button class="btn btn-danger btn-sm" onclick="blockUser(this,'Ahmet Yılmaz')">Engelle</button>
-        </div>
-        <div class="user-row">
-          <div class="user-info">
-            <div class="mini-avatar">Z</div>
-            <div>
-              <div style="font-weight:600;font-size:0.88rem;">Zeynep Kaya</div>
-              <div style="font-size:0.75rem;color:var(--text2);">Ankara · 8 görev · ★ 4.9</div>
-            </div>
-          </div>
-          <button class="btn btn-danger btn-sm" onclick="blockUser(this,'Zeynep Kaya')">Engelle</button>
-        </div>
-        <div class="user-row">
-          <div class="user-info">
-            <div class="mini-avatar">M</div>
-            <div>
-              <div style="font-weight:600;font-size:0.88rem;">Mehmet Demir</div>
-              <div style="font-size:0.75rem;color:var(--text2);">İzmir · 3 görev · ★ 4.6</div>
-            </div>
-          </div>
-          <button class="btn btn-danger btn-sm" onclick="blockUser(this,'Mehmet Demir')">Engelle</button>
-        </div>
-      </div>
+      <div class="stitle">Kullanıcı Yönetimi</div>
+      <div class="urow"><div class="uinfo"><div class="mini-av">A</div><div><div style="font-weight:600;font-size:.88rem">Ahmet Yılmaz</div><div style="font-size:.75rem;color:var(--text2)">İstanbul · 12 görev · ★ 4.8</div></div></div><button class="btn btn-danger btn-sm" onclick="blockUser(this,'Ahmet Yılmaz')">Engelle</button></div>
+      <div class="urow"><div class="uinfo"><div class="mini-av">Z</div><div><div style="font-weight:600;font-size:.88rem">Zeynep Kaya</div><div style="font-size:.75rem;color:var(--text2)">Ankara · 8 görev · ★ 4.9</div></div></div><button class="btn btn-danger btn-sm" onclick="blockUser(this,'Zeynep Kaya')">Engelle</button></div>
+      <div class="urow"><div class="uinfo"><div class="mini-av">M</div><div><div style="font-weight:600;font-size:.88rem">Mehmet Demir</div><div style="font-size:.75rem;color:var(--text2)">İzmir · 3 görev · ★ 4.6</div></div></div><button class="btn btn-danger btn-sm" onclick="blockUser(this,'Mehmet Demir')">Engelle</button></div>
     </div>
-
-    <div class="card">
-      <div class="section-title">Aktif İlanlar</div>
-      <div id="adminJobList"></div>
-    </div>
-
+    <div class="card"><div class="stitle">Aktif İlanlar</div><div id="adminJobs"></div></div>
   </div>
 </div>
 
-<!-- ============================================================
-     MODALS
-     ============================================================ -->
+<!-- ══════════════════ MODALS ══════════════════ -->
+<div class="modal-overlay" id="mJob"><div class="modal"><div class="modal-handle"></div><button class="modal-close" onclick="closeM('mJob')">✕ Kapat</button><div id="mJobContent"></div></div></div>
 
-<!-- Job Detail Modal -->
-<div class="modal-overlay" id="jobModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <button class="modal-close" onclick="closeModal('jobModal')">✕ Kapat</button>
-    <div id="jobModalContent"></div>
-  </div>
-</div>
-
-<!-- Apply Modal -->
-<div class="modal-overlay" id="applyModal">
+<div class="modal-overlay" id="mApply">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title">Başvuru Yap ✉️</div>
-    <div class="form-group">
-      <label>Başvuru Yazısı <span class="required">*</span></label>
-      <textarea class="form-control" id="applyText" rows="4" placeholder="Kendinizi tanıtın. Neden bu iş için uygun olduğunuzu belirtin…"></textarea>
-    </div>
-    <div class="form-group">
-      <label>Müsaitlik Saatleri</label>
-      <select class="form-control">
-        <option>Tam Gün (08:00 – 18:00)</option>
-        <option>Sabah (08:00 – 13:00)</option>
-        <option>Öğleden Sonra (13:00 – 18:00)</option>
-        <option>Akşam (18:00 – 23:00)</option>
-        <option>Gece (22:00 – 06:00)</option>
-        <option>Esnek</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Deneyim Düzeyi</label>
-      <select class="form-control">
-        <option>Deneyimsiz / İlk Kez</option>
-        <option>Benzer İş Yaptım</option>
-        <option>Deneyimliyim</option>
-        <option>Uzmanım</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>En Erken Başlangıç Tarihi</label>
-      <input class="form-control" type="date">
-    </div>
+    <div class="form-group"><label>Başvuru Yazısı <span class="req">*</span></label><textarea class="fc" id="applyTxt" rows="4" placeholder="Kendinizi tanıtın. Neden bu iş için uygunsunuz?"></textarea></div>
+    <div class="form-group"><label>Müsaitlik Saatleri</label><select class="fc"><option>Tam Gün (08:00–18:00)</option><option>Sabah (08:00–13:00)</option><option>Öğleden Sonra (13:00–18:00)</option><option>Akşam (18:00–23:00)</option><option>Gece (22:00–06:00)</option><option>Esnek</option></select></div>
+    <div class="form-group"><label>Deneyim Düzeyi</label><select class="fc"><option>Deneyimsiz / İlk Kez</option><option>Benzer İş Yaptım</option><option>Deneyimliyim</option><option>Uzmanım</option></select></div>
     <div class="form-row">
-      <div class="form-group">
-        <label>Beklenen Ücret (₺/gün)</label>
-        <input class="form-control" type="number" placeholder="İlan ücreti">
-      </div>
-      <div class="form-group">
-        <label>Ulaşım Aracı</label>
-        <select class="form-control">
-          <option>Toplu Taşıma</option>
-          <option>Özel Araç</option>
-          <option>Motorsiklet</option>
-          <option>Yürüme Mesafesinde</option>
-        </select>
-      </div>
+      <div class="form-group"><label>En Erken Başlangıç</label><input class="fc" type="date"></div>
+      <div class="form-group"><label>Ulaşım Aracı</label><select class="fc"><option>Toplu Taşıma</option><option>Özel Araç</option><option>Motorsiklet</option><option>Yürüme Mesafesi</option></select></div>
     </div>
-    <button class="btn btn-accent btn-full" onclick="submitApplication()">Başvuruyu Gönder 🚀</button>
+    <button class="btn btn-accent btn-full" onclick="submitApply()">Başvuruyu Gönder 🚀</button>
   </div>
 </div>
 
-<!-- Rate Modal -->
-<div class="modal-overlay" id="rateModal">
+<div class="modal-overlay" id="mRate">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title">Görevi Değerlendir ⭐</div>
-    <p style="color:var(--text2);margin-bottom:1.2rem;font-size:0.88rem;">Tamamladığın görev ve işveren için puan ve yorum bırak.</p>
-    <div class="form-group">
-      <label>İşverene Puan</label>
-      <div class="stars-input" id="ratingStars">
-        <button class="star-btn" onclick="setRating(1)">★</button>
-        <button class="star-btn" onclick="setRating(2)">★</button>
-        <button class="star-btn" onclick="setRating(3)">★</button>
-        <button class="star-btn" onclick="setRating(4)">★</button>
-        <button class="star-btn" onclick="setRating(5)">★</button>
+    <p style="color:var(--text2);margin-bottom:1.2rem;font-size:.88rem">Tamamladığın görev ve işveren için puan ve yorum bırak.</p>
+    <div class="form-group"><label>İşverene Puan</label><div class="stars-input" id="rStars"><button class="star-btn" onclick="setRating(1)">★</button><button class="star-btn" onclick="setRating(2)">★</button><button class="star-btn" onclick="setRating(3)">★</button><button class="star-btn" onclick="setRating(4)">★</button><button class="star-btn" onclick="setRating(5)">★</button></div></div>
+    <div class="form-group"><label>Yorum</label><textarea class="fc" rows="3" placeholder="Çalışma ortamı, ödeme, davranış…"></textarea></div>
+    <button class="btn btn-accent btn-full" onclick="submitRate()">Değerlendirmeyi Gönder</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="mEditProf"><div class="modal"><div class="modal-handle"></div><div class="modal-title">Profili Düzenle ✏️</div><div class="form-group"><label>Ad Soyad</label><input class="fc" type="text" value="Ahmet Yılmaz"></div><div class="form-group"><label>İl</label><select class="fc city-sel"></select></div><div class="form-group"><label>Eğitim Düzeyi</label><select class="fc"><option>Lisans Mezunu</option><option>Lisans (Devam Ediyor)</option><option>Ön Lisans Mezunu</option><option>Lise Mezunu</option><option>Yüksek Lisans</option></select></div><div class="form-group"><label>Hakkımda</label><textarea class="fc" rows="3" placeholder="Kendinizi kısaca tanıtın…"></textarea></div><button class="btn btn-accent btn-full" onclick="saveProf()">Kaydet ✅</button></div></div>
+<div class="modal-overlay" id="mPass"><div class="modal"><div class="modal-handle"></div><div class="modal-title">Şifre Değiştir 🔑</div><div class="form-group"><label>Mevcut Şifre</label><input class="fc" type="password" placeholder="••••••••"></div><div class="form-group"><label>Yeni Şifre</label><input class="fc" type="password" placeholder="••••••••"></div><div class="form-group"><label>Yeni Şifre (Tekrar)</label><input class="fc" type="password" placeholder="••••••••"></div><button class="btn btn-accent btn-full" onclick="closeM('mPass');toast('✅ Şifren güncellendi!')">Güncelle</button></div></div>
+<div class="modal-overlay" id="mEmail"><div class="modal"><div class="modal-handle"></div><div class="modal-title">E-posta Değiştir 📧</div><div class="form-group"><label>Yeni E-posta</label><input class="fc" type="email" placeholder="yeni@email.com"></div><div class="form-group"><label>Şifre (Doğrulama)</label><input class="fc" type="password" placeholder="••••••••"></div><button class="btn btn-accent btn-full" onclick="closeM('mEmail');toast('✅ E-posta güncellendi!')">Güncelle</button></div></div>
+<div class="modal-overlay" id="mPhone"><div class="modal"><div class="modal-handle"></div><div class="modal-title">Telefon Değiştir 📱</div><div class="form-group"><label>Yeni Telefon</label><input class="fc" type="tel" placeholder="05XX XXX XX XX"></div><div class="form-group"><label>Şifre (Doğrulama)</label><input class="fc" type="password" placeholder="••••••••"></div><button class="btn btn-accent btn-full" onclick="closeM('mPhone');toast('✅ Telefon güncellendi!')">Güncelle</button></div></div>
+
+<script>
+// ── DATA ──
+const CITIES=["Adana","Adıyaman","Afyonkarahisar","Ağrı","Amasya","Ankara","Antalya","Artvin","Aydın","Balıkesir","Bilecik","Bingöl","Bitlis","Bolu","Burdur","Bursa","Çanakkale","Çankırı","Çorum","Denizli","Diyarbakır","Edirne","Elazığ","Erzincan","Erzurum","Eskişehir","Gaziantep","Giresun","Gümüşhane","Hakkari","Hatay","Isparta","Mersin","İstanbul","İzmir","Kars","Kastamonu","Kayseri","Kırklareli","Kırşehir","Kocaeli","Konya","Kütahya","Malatya","Manisa","Kahramanmaraş","Mardin","Muğla","Muş","Nevşehir","Niğde","Ordu","Rize","Sakarya","Samsun","Siirt","Sinop","Sivas","Tekirdağ","Tokat","Trabzon","Tunceli","Şanlıurfa","Uşak","Van","Yozgat","Zonguldak","Aksaray","Bayburt","Karaman","Kırıkkale","Batman","Şırnak","Bartın","Ardahan","Iğdır","Yalova","Karabük","Kilis","Osmaniye","Düzce"];
+
+const JOBS=[
+  {id:1,title:"Depo Yükleme / Boşaltma Elemanı",company:"Migros Lojistik",city:"İstanbul",wage:"₺750",wt:"gün",dur:"2 Gün",cat:"Depo",tags:["Fiziksel Dayanıklılık","Sabah 08:00-17:00","Teknik Bilgi Gerekmez"],icon:"📦",desc:"İstanbul Esenyurt deposunda mal yükleme ve boşaltma işleri. Sabah 08:00'de hazır bulunmanız gerekmektedir. Teknik bilgi gerekmez.",quota:8,posted:"2 saat önce"},
+  {id:2,title:"Etkinlik Görevlisi",company:"İstanbul Kongre Merkezi",city:"İstanbul",wage:"₺600",wt:"gün",dur:"1 Gün",cat:"Etkinlik",tags:["İletişim Becerileri","Hafta Sonu","Sunum"],icon:"🎪",desc:"Uluslararası kongre etkinliğinde katılımcı yönlendirme ve karşılama görevi.",quota:15,posted:"5 saat önce"},
+  {id:3,title:"Yazılım Geliştirme Stajyeri",company:"TechVision A.Ş.",city:"Ankara",wage:"₺5.000",wt:"ay",dur:"3 Ay (Staj)",cat:"Staj",tags:["Python","Ofis","Lisans Öğrencisi","Uzaktan Seçenek"],icon:"💻",desc:"Yazılım ekibinde ücretli 3 aylık staj programı. Python veya JavaScript bilgisi tercih sebebidir. SGK girişi yapılır.",quota:2,posted:"1 gün önce"},
+  {id:4,title:"Servis Elemanı (Özel Etkinlik)",company:"Elit Organizasyon",city:"İzmir",wage:"₺500",wt:"gün",dur:"1 Gün",cat:"Servis",tags:["Servis","Hafta Sonu","Kıyafet Sağlanır"],icon:"🍽️",desc:"İzmir'de düğün etkinliğinde masa servisi ve misafir karşılama. Kıyafet organizasyon tarafından sağlanır.",quota:12,posted:"1 gün önce"},
+  {id:5,title:"Üretim Hattı Elemanı",company:"Arçelik Fabrikası",city:"Bursa",wage:"₺800",wt:"gün",dur:"1 Hafta",cat:"Fabrika",tags:["Fabrika","Tam Gün","Servis İmkânı","SGK"],icon:"🏭",desc:"Beyaz eşya üretim hattında geçici iş gücü. İşletme servisi mevcuttur. SGK girişi yapılır.",quota:20,posted:"3 saat önce"},
+  {id:6,title:"Ofis Destek Personeli",company:"Garanti BBVA",city:"Ankara",wage:"₺650",wt:"gün",dur:"2 Hafta",cat:"Ofis",tags:["Bilgisayar","Excel","Sabah 09:00-18:00"],icon:"💼",desc:"Genel müdürlük ofisinde dosyalama, veri girişi ve arşiv düzenleme. Microsoft Office bilgisi tercih sebebidir.",quota:3,posted:"6 saat önce"},
+  {id:7,title:"Temizlik Görevlisi",company:"Cevahir AVM",city:"İstanbul",wage:"₺550",wt:"gün",dur:"3 Gün",cat:"Temizlik",tags:["Akşam 18:00-23:00","Hafta Sonu","Ekipman Sağlanır"],icon:"🧹",desc:"Alışveriş merkezi temizlik ekibinde geçici çalışma. Tüm ekipmanlar iş yeri tarafından sağlanır.",quota:6,posted:"4 saat önce"},
+  {id:8,title:"Promosyon Tanıtım Görevlisi",company:"Coca-Cola Türkiye",city:"İzmir",wage:"₺580",wt:"gün",dur:"2-3 Gün",cat:"Etkinlik",tags:["İletişim","Güler Yüz","Dışa Dönük Kişilik"],icon:"📢",desc:"Market ve AVM'lerde ürün tanıtımı ve ücretsiz örnekleme. Enerjik ve sosyal bireyler tercih edilir.",quota:10,posted:"8 saat önce"},
+  {id:9,title:"Güvenlik Görevlisi (Geçici)",company:"SecureNet Güvenlik",city:"Ankara",wage:"₺700",wt:"gün",dur:"1 Hafta",cat:"Güvenlik",tags:["Özel Güvenlik Belgesi","Gece / Gündüz","Üniformalı"],icon:"🔒",desc:"Özel etkinlik ve inşaat alanlarında geçici güvenlik görevi. Özel güvenlik belgesi şarttır.",quota:5,posted:"12 saat önce"},
+  {id:10,title:"Pazarlama Stajyeri",company:"Türk Telekom",city:"İstanbul",wage:"₺4.500",wt:"ay",dur:"3 Ay (Staj)",cat:"Staj",tags:["Sosyal Medya","İçerik","Üniversite Öğrencisi"],icon:"📱",desc:"Pazarlama departmanında sosyal medya ve içerik yönetimi alanında ücretli staj. SGK girişi yapılır.",quota:1,posted:"2 gün önce"}
+];
+
+const SPEC=[
+  {id:101,title:"Uzaktan Veri Girişi Uzmanı",company:"DataPlus Teknoloji",city:"Uzaktan",wage:"₺4.500",wt:"ay",dur:"1 Ay",tags:["Uzaktan Çalışma","Esnek Saat","Ekran Okuyucu Destekli","Engel Teşviki"],icon:"💻",desc:"Evden çalışma imkânıyla veri girişi ve düzenleme. Bilgisayar ve internet bağlantısı yeterli. Ekran okuyucu uyumlu sistem."},
+  {id:102,title:"Online Müşteri Destek Operatörü",company:"TeleYardım A.Ş.",city:"Uzaktan",wage:"₺5.000",wt:"ay",dur:"Uzun Dönem",tags:["Sözlü İletişim Gerekmez","Yazılı/Chat","Uzaktan","İşitme Engelli Uyumlu"],icon:"💬",desc:"Chat ve e-posta üzerinden müşteri destek hizmetleri. Sözlü iletişim kesinlikle gerekmez."},
+  {id:103,title:"İçerik Moderatörü",company:"SocialTR Medya",city:"Uzaktan",wage:"₺4.200",wt:"ay",dur:"3 Ay",tags:["Uzaktan","Esnek Saat","Görme Engelli Desteği"],icon:"🖥️",desc:"Sosyal medya içerik denetimi. Platform tam erişilebilirlik standartlarına uygun. Yardımcı teknolojiler desteklenmektedir."},
+  {id:104,title:"El Sanatları Üretim Görevlisi",company:"Atölye Engelsiz",city:"İstanbul",wage:"₺350",wt:"gün",dur:"Uzun Dönem",tags:["Oturarak Çalışma","Esnek Saat","Destekli Ortam","Ulaşım Desteği"],icon:"🎨",desc:"Engel dostu atölyemizde el yapımı ürün üretimi. Refakatçi ve ulaşım desteği mevcuttur."},
+  {id:105,title:"Sesli Kitap Okuyucusu",company:"KitapSes Yayınları",city:"Uzaktan",wage:"₺200",wt:"saat",dur:"Esnek",tags:["Uzaktan","Kendi Programın","Hareketlilik Engeli Uyumlu"],icon:"🎙️",desc:"Evde kayıt yaparak sesli kitap seslendirme. Kayıt ekipmanı iş yeri tarafından gönderilir."}
+];
+
+// ── STATE ──
+let S={slide:0,dark:true,user:null,filter:'Tümü',rating:0,jobs:[...JOBS]};
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  fillCities();
+  renderFilters();
+  renderJobs();
+  renderSpec();
+  renderMyJobs();
+  renderAdminJobs();
+  document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')}));
+});
+
+// ── CITIES ──
+function fillCities(){
+  document.querySelectorAll('.city-sel').forEach(s=>{
+    s.innerHTML='<option value="">Şehir seçin…</option>'+CITIES.map(c=>`<option>${c}</option>`).join('');
+  });
+}
+
+// ── SCREENS ──
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function goToAuth(){showScreen('auth')}
+
+// ── ONBOARDING ──
+function nextSlide(){
+  document.getElementById('ob'+S.slide).classList.remove('active');
+  S.slide++;
+  document.getElementById('ob'+S.slide).classList.add('active');
+}
+
+// ── AUTH VIEWS ──
+function showV(id){['vLogin','vReg','vAdmin'].forEach(v=>document.getElementById(v).style.display=v===id?'block':'none')}
+
+// ── LOGIN ──
+function doLogin(){
+  const n=document.getElementById('lName').value.trim();
+  const p=document.getElementById('lPass').value;
+  if(!n||!p){toast('⚠️ Lütfen tüm alanları doldurun');return}
+  document.getElementById('loginOk').style.display='block';
+  S.user={name:n,initial:n[0].toUpperCase(),city:'İstanbul',edu:'Lisans'};
+  setTimeout(()=>{document.getElementById('loginOk').style.display='none';launchApp()},1900);
+}
+
+// ── REGISTER ──
+function doRegister(){
+  const n=document.getElementById('rName').value.trim();
+  const u=document.getElementById('rUser').value.trim();
+  const e=document.getElementById('rEmail').value.trim();
+  const c=document.getElementById('rCity').value;
+  const ed=document.getElementById('rEdu').value;
+  const p=document.getElementById('rPass').value;
+  if(!n||!u||!e||!c||!ed||!p){toast('⚠️ Zorunlu (*) alanları doldurun');return}
+  document.getElementById('regOk').style.display='block';
+  S.user={name:n,initial:n[0].toUpperCase(),city:c,edu:ed};
+  setTimeout(()=>{document.getElementById('regOk').style.display='none';launchApp()},1900);
+}
+
+// ── ADMIN ──
+function doAdminLogin(){
+  const u=document.getElementById('aUser').value;
+  const p=document.getElementById('aPass').value;
+  if(u==='admin'&&p==='admin123'){showScreen('adminPanel');renderAdminJobs();toast('✅ Admin paneline hoş geldiniz')}
+  else toast('❌ Hatalı admin bilgileri');
+}
+
+// ── LAUNCH ──
+function launchApp(){
+  const u=S.user;
+  document.getElementById('wName').textContent=u.name+' 👋';
+  document.getElementById('userAv').textContent=u.initial;
+  document.getElementById('pAvBig').textContent=u.initial;
+  document.getElementById('pNameBig').textContent=u.name;
+  document.getElementById('pLocEdu').textContent=(u.city||'Türkiye')+' • '+(u.edu||'Belirtilmedi');
+  showScreen('app');
+  goPage('home');
+}
+
+// ── LOGOUT ──
+function logout(){
+  S.user=null;S.slide=0;
+  document.querySelectorAll('.ob-slide').forEach((s,i)=>s.classList.toggle('active',i===0));
+  showScreen('onboarding');
+}
+
+// ── NAVIGATION ──
+function goPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  const idx={home:0,jobs:1,special:2,profile:3}[p];
+  const ni=document.querySelectorAll('.nav-item');
+  if(ni[idx])ni[idx].classList.add('active');
+}
+
+// ── RENDER JOBS ──
+function renderFilters(){
+  const fs=['Tümü','Depo','Servis','Etkinlik','Ofis','Staj','Fabrika','Temizlik','Güvenlik'];
+  const ic=['🔍','📦','🍽️','🎪','💼','🎓','🏭','🧹','🔒'];
+  document.getElementById('fbar').innerHTML=fs.map((f,i)=>`<div class="fchip${f==='Tümü'?' active':''}" onclick="setFilter('${f}',this)">${ic[i]} ${f}</div>`).join('');
+}
+
+function renderJobs(filt='Tümü',srch=''){
+  const el=document.getElementById('jobList');
+  const q=srch.toLowerCase();
+  const list=S.jobs.filter(j=>{
+    const mc=filt==='Tümü'||j.cat===filt;
+    const ms=!q||j.title.toLowerCase().includes(q)||j.company.toLowerCase().includes(q)||j.city.toLowerCase().includes(q)||j.tags.some(t=>t.toLowerCase().includes(q));
+    return mc&&ms;
+  });
+  if(!list.length){el.innerHTML='<div class="empty"><div class="empty-icon">🔍</div><div>Bu kriterlere uygun ilan bulunamadı.<br>Farklı filtre deneyin.</div></div>';return}
+  el.innerHTML=list.map(j=>`
+    <div class="job-card" onclick="openJob(${j.id})">
+      <div class="job-banner">${j.icon}</div>
+      <div class="jch">
+        <div><div class="jco">${j.company} · ${j.city}</div><div class="jti">${j.title}</div></div>
+        <div class="jwa">${j.wage}<span style="font-size:.72rem;font-weight:500;color:var(--text2)">/${j.wt}</span></div>
       </div>
+      <div class="jtags">
+        <span class="tag">${j.dur}</span>
+        ${j.tags.slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('')}
+        ${j.quota?`<span class="tag tag-g">${j.quota} kişi</span>`:''}
+        <span class="tag" style="font-size:.7rem;color:var(--text2)">${j.posted}</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderSpec(){
+  document.getElementById('specList').innerHTML=SPEC.map(j=>`
+    <div class="job-card" onclick="openSpec(${j.id})">
+      <div class="jch">
+        <div><div class="jco">${j.company} · ${j.city}</div><div class="jti">${j.icon} ${j.title}</div></div>
+        <div class="jwa">${j.wage}<span style="font-size:.72rem;font-weight:500;color:var(--text2)">/${j.wt}</span></div>
+      </div>
+      <div class="jtags">
+        <span class="tag">${j.dur}</span>
+        ${j.tags.map(t=>`<span class="tag tag-g">${t}</span>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function renderMyJobs(){
+  document.getElementById('myJobs').innerHTML='<div class="empty"><div class="empty-icon">📋</div><div>Henüz ilan vermediniz.</div></div>';
+}
+
+function renderAdminJobs(){
+  const el=document.getElementById('adminJobs');
+  if(!el)return;
+  el.innerHTML=S.jobs.map(j=>`<div class="urow"><div><div style="font-weight:600;font-size:.88rem">${j.title}</div><div style="font-size:.75rem;color:var(--text2)">${j.company} · ${j.city} · ${j.wage}/${j.wt}</div></div><span class="tag tag-g">Aktif</span></div>`).join('');
+}
+
+// ── FILTER ──
+function filterJobs(){renderJobs(S.filter,document.getElementById('srch').value)}
+function setFilter(f,el){S.filter=f;document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');filterJobs()}
+
+// ── JOB DETAIL ──
+function openJob(id){
+  const j=S.jobs.find(x=>x.id===id);if(!j)return;
+  document.getElementById('mJobContent').innerHTML=buildDetail(j);
+  openM('mJob');
+}
+function openSpec(id){
+  const j=SPEC.find(x=>x.id===id);if(!j)return;
+  document.getElementById('mJobContent').innerHTML=buildDetail(j,true);
+  openM('mJob');
+}
+function buildDetail(j,spec=false){
+  return`<div style="font-size:3.5rem;text-align:center;padding:1rem 0;background:var(--bg3);border-radius:12px;margin-bottom:1rem">${j.icon}</div>
+    <div style="font-size:.82rem;color:var(--text2);margin-bottom:.3rem">${j.company}</div>
+    <div class="modal-title">${j.title}</div>
+    <div class="jtags" style="margin-bottom:1rem">
+      <span class="tag tag-a">${j.wage}/${j.wt}</span>
+      <span class="tag">${j.city}</span>
+      <span class="tag">${j.dur}</span>
+      ${j.quota?`<span class="tag tag-g">${j.quota} Kişi Aranıyor</span>`:''}
     </div>
-    <div class="form-group">
-      <label>Yorum</label>
-      <textarea class="form-control" rows="3" placeholder="Çalışma ortamı, ödeme düzeni, davranış…"></textarea>
-    </div>
-    <button class="btn btn-accent btn-full" onclick="submitRating()">Değerlendirmeyi Gönder</button>
-  </div>
-</div>
+    <p style="color:var(--text2);font-size:.9rem;line-height:1.75;margin-bottom:1rem">${j.desc}</p>
+    <div class="jtags" style="margin-bottom:1.5rem">${j.tags.map(t=>`<span class="${spec?'tag tag-g':'tag'}">${t}</span>`).join('')}</div>
+    <div style="display:flex;gap:.8rem">
+      <button class="btn btn-accent" style="flex:1" onclick="closeM('mJob');setTimeout(()=>openM('mApply'),200)">Başvur 🚀</button>
+      <button class="btn btn-outline" onclick="closeM('mJob');setTimeout(()=>openM('mRate'),200)">Değerlendir ⭐</button>
+    </div>`;
+}
 
-<!-- Edit Profile Modal -->
-<div class="modal-overlay" id="editProfileModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Profili Düzenle ✏️</div>
-    <div class="form-group"><label>Ad Soyad</label><input class="form-control" type="text" value="Ahmet Yılmaz"></div>
-    <div class="form-group"><label>İl</label><select class="form-control city-select"></select></div>
-    <div class="form-group">
-      <label>Eğitim Düzeyi</label>
-      <select class="form-control">
-        <option>Lisans Mezunu</option>
-        <option>Lisans (Devam Ediyor)</option>
-        <option>Ön Lisans Mezunu</option>
-        <option>Lise Mezunu</option>
-        <option>Yüksek Lisans</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Hakkımda</label><textarea class="form-control" rows="3" placeholder="Kendinizi kısaca tanıtın…"></textarea></div>
-    <button class="btn btn-accent btn-full" onclick="saveProfile()">Kaydet ✅</button>
-  </div>
-</div>
+// ── APPLY ──
+function submitApply(){
+  const t=document.getElementById('applyTxt').value.trim();
+  if(!t){toast('⚠️ Başvuru yazısı gerekli');return}
+  closeM('mApply');
+  document.getElementById('applyTxt').value='';
+  toast('✅ Başvurun başarıyla gönderildi!');
+}
 
-<!-- Change Password Modal -->
-<div class="modal-overlay" id="changePassModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Şifre Değiştir 🔑</div>
-    <div class="form-group"><label>Mevcut Şifre</label><input class="form-control" type="password" placeholder="••••••••"></div>
-    <div class="form-group"><label>Yeni Şifre</label><input class="form-control" type="password" placeholder="••••••••"></div>
-    <div class="form-group"><label>Yeni Şifre (Tekrar)</label><input class="form-control" type="password" placeholder="••••••••"></div>
-    <button class="btn btn-accent btn-full" onclick="savePassword()">Şifremi Güncelle</button>
-  </div>
-</div>
+// ── POST JOB ──
+function postJob(){
+  const t=document.getElementById('jTitle').value.trim();
+  const c=document.getElementById('jCity').value;
+  const w=document.getElementById('jWage').value;
+  if(!t||!c||!w){toast('⚠️ Başlık, şehir ve ücret zorunludur');return}
+  const skills=[...document.querySelectorAll('#empSkills .skill-opt.selected')].map(e=>e.textContent.trim());
+  const newJ={id:Date.now(),title:t,company:S.user?.name||'Şirketiniz',city:c,wage:'₺'+w,wt:'gün',dur:document.getElementById('jDur').value,cat:document.getElementById('jCat').value.split(' ')[0],tags:skills,icon:'📋',desc:document.getElementById('jDesc').value||'Detay belirtilmedi.',quota:null,posted:'Az önce'};
+  S.jobs.unshift(newJ);
+  ['jTitle','jWage','jDesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pPreview').innerHTML='';
+  document.querySelectorAll('#empSkills .skill-opt.selected').forEach(e=>e.classList.remove('selected'));
+  document.getElementById('myJobs').innerHTML=`<div class="job-card"><div class="jch"><div><div class="jco">${c}</div><div class="jti">${t}</div></div><div class="jwa">₺${w}/gün</div></div><div class="jtags"><span class="tag">${newJ.dur}</span><span class="tag tag-g">Yeni Yayınlandı</span></div></div>`;
+  toast('🚀 İlanın yayınlandı!');
+}
 
-<!-- Change Email Modal -->
-<div class="modal-overlay" id="changeEmailModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">E-posta Değiştir 📧</div>
-    <div class="form-group"><label>Yeni E-posta</label><input class="form-control" type="email" placeholder="yeni@email.com"></div>
-    <div class="form-group"><label>Şifre (Doğrulama)</label><input class="form-control" type="password" placeholder="••••••••"></div>
-    <button class="btn btn-accent btn-full" onclick="saveEmail()">E-postayı Güncelle</button>
-  </div>
-</div>
+function previewPhoto(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>document.getElementById('pPreview').innerHTML=`<img src="${ev.target.result}" style="width:100%;border-radius:10px;max-height:200px;object-fit:cover;margin-top:.8rem">`;
+  r.readAsDataURL(f);
+}
 
-<!-- Change Phone Modal -->
-<div class="modal-overlay" id="changePhoneModal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Telefon Değiştir 📱</div>
-    <div class="form-group"><label>Yeni Telefon Numarası</label><input class="form-control" type="tel" placeholder="05XX XXX XX XX"></div>
-    <div class="form-group"><label>Şifre (Doğrulama)</label><input class="form-control" type="password" placeholder="••••••••"></div>
-    <button class="btn btn-accent btn-full" onclick="savePhone()">Numarayı Güncelle</button>
-  </div>
-</div>
+function toggleSkill(el){el.classList.toggle('selected')}
 
-<!-- Scripts -->
-<script src="js/data.js"></script>
-<script src="js/app.js"></script>
+// ── RATING ──
+function setRating(n){
+  S.rating=n;
+  document.querySelectorAll('#rStars .star-btn').forEach((s,i)=>s.classList.toggle('lit',i<n));
+}
+function submitRate(){
+  if(!S.rating){toast('⚠️ Lütfen bir puan seçin');return}
+  closeM('mRate');S.rating=0;
+  document.querySelectorAll('#rStars .star-btn').forEach(s=>s.classList.remove('lit'));
+  toast('⭐ Değerlendirmen kaydedildi, teşekkürler!');
+}
+
+// ── ADMIN ──
+function blockUser(btn,name){btn.textContent='✓ Engellendi';btn.style.background='var(--bg3)';btn.style.color='var(--text2)';btn.disabled=true;toast('🚫 '+name+' engellendi')}
+
+// ── PROFILE ──
+function saveProf(){closeM('mEditProf');toast('✅ Profil güncellendi!')}
+
+// ── MODALS ──
+function openM(id){document.getElementById(id).classList.add('open')}
+function closeM(id){document.getElementById(id).classList.remove('open')}
+
+// ── THEME ──
+function toggleTheme(){
+  S.dark=!S.dark;
+  document.body.classList.toggle('light',!S.dark);
+}
+
+// ── TOAST ──
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>t.classList.remove('show'),3200);
+}
+</script>
 </body>
 </html>
