@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Gençİş — Türkiye'nin esnek iş gücü platformu. Gençler ve öğrenciler için anlık ve kısa süreli iş fırsatları.">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="Gençİş — Türkiye İş Gücü Platformu">
+  <meta property="og:description" content="Boş zamanını kazanca dönüştür. Öğrenci ve gençler için anlık iş fırsatları.">
+  <meta property="og:type" content="website">
+  <title>Gençİş — Esnek İş Gücü Platformu</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     SCREEN 1: ONBOARDING
+     ============================================================ -->
+<div class="screen active" id="onboarding">
+  <div class="ob-bg"></div>
+  <div class="ob-dots"></div>
+
+  <!-- Slide 0 -->
+  <div class="ob-slide active" id="ob0">
+    <div class="ob-logo">
+      <div class="ob-logo-mark">G</div>
+      <div class="ob-logo-text">Gençİş</div>
+    </div>
+    <h2>Türkiye'nin Esnek<br>İş Gücü Platformu</h2>
+    <p>Boş zamanını kazanca dönüştür. Öğrenci, genç veya ek gelir arayan herkes için anlık ve kısa süreli iş fırsatları.</p>
+    <div class="ob-nav-dots">
+      <div class="ob-nav-dot active"></div>
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot"></div>
+    </div>
+    <button class="btn btn-accent" onclick="nextSlide()">Başlayalım →</button>
+  </div>
+
+  <!-- Slide 1 -->
+  <div class="ob-slide" id="ob1">
+    <div class="ob-icon">🎯</div>
+    <h2>İşleri Bul,<br>Hemen Başla</h2>
+    <p>Konumuna, becerilerine ve müsait olduğun saatlere göre işler sana geliyor. Başvur, onayla, çalış.</p>
+    <div class="ob-nav-dots">
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot active"></div>
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot"></div>
+    </div>
+    <button class="btn btn-accent" onclick="nextSlide()">Devam →</button>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="ob-slide" id="ob2">
+    <div class="ob-icon">⭐</div>
+    <h2>Puan Kazan,<br>Güven İnşa Et</h2>
+    <p>Her tamamlanan görev sonrası puanlanırsın. Yüksek puanlar daha iyi fırsatlara erişim sağlar.</p>
+    <div class="ob-nav-dots">
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot active"></div>
+      <div class="ob-nav-dot"></div>
+    </div>
+    <button class="btn btn-accent" onclick="nextSlide()">Devam →</button>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="ob-slide" id="ob3">
+    <div class="ob-icon">💰</div>
+    <h2>Güvenli &<br>Şeffaf Ödeme</h2>
+    <p>Görev tamamlandığında ödemen otomatik olarak hesabına aktarılır. Hızlı, güvenli, şeffaf.</p>
+    <div class="ob-nav-dots">
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot"></div>
+      <div class="ob-nav-dot active"></div>
+    </div>
+    <button class="btn btn-accent" onclick="goToAuth()">Hemen Başla 🚀</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 2: AUTH
+     ============================================================ -->
+<div class="screen" id="auth">
+  <div class="auth-topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-mark">G</div>
+      <div class="topbar-logo-text">Gençİş</div>
+    </div>
+    <button class="icon-btn" data-theme-btn onclick="toggleTheme()">🌙</button>
+  </div>
+
+  <div class="auth-box">
+
+    <!-- LOGIN VIEW -->
+    <div id="viewLogin">
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <h2 style="font-size:1.55rem;">Tekrar Hoş Geldin 👋</h2>
+        <p style="color:var(--text2); font-size:0.88rem; margin-top:0.4rem;">Hesabına giriş yap</p>
+      </div>
+      <div class="alert alert-success" id="loginSuccess" style="display:none;">
+        <span class="alert-title">✅ Giriş Onaylandı!</span>
+        <span class="alert-sub">Profiline yönlendiriliyorsun…</span>
+      </div>
+      <div class="form-group">
+        <label>Kullanıcı Adı</label>
+        <input class="form-control" type="text" id="loginName" placeholder="Kullanıcı adını gir">
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input class="form-control" type="password" id="loginPass" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter') doLogin()">
+      </div>
+      <button class="btn btn-accent btn-full" onclick="doLogin()">Giriş Yap</button>
+      <div class="divider"><span>veya</span></div>
+      <button class="btn btn-outline btn-full" onclick="showRegisterView()">Hesap Oluştur</button>
+      <div style="text-align:center; margin-top:1.2rem;">
+        <span style="font-size:0.83rem; color:var(--text2); cursor:pointer;" onclick="showAdminView()">🔐 Admin Girişi</span>
+      </div>
+    </div>
+
+    <!-- REGISTER VIEW -->
+    <div id="viewRegister" style="display:none;">
+      <button class="back-btn" onclick="showLoginView()">← Geri</button>
+      <h2 style="font-size:1.4rem; margin-bottom:1.5rem;">Hesap Oluştur</h2>
+      <div class="alert alert-success" id="registerSuccess" style="display:none;">
+        <span class="alert-title">🎉 Üyelik Tamamlandı!</span>
+        <span class="alert-sub">Profilin oluşturuldu, hoş geldin!</span>
+      </div>
+      <div class="form-group">
+        <label>Ad Soyad <span class="required">*</span></label>
+        <input class="form-control" type="text" id="regName" placeholder="Adın ve soyadın">
+      </div>
+      <div class="form-group">
+        <label>Kullanıcı Adı <span class="required">*</span></label>
+        <input class="form-control" type="text" id="regUser" placeholder="benzersiz_kullanici_adi">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>E-posta <span class="required">*</span></label>
+          <input class="form-control" type="email" id="regEmail" placeholder="email@örnek.com">
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input class="form-control" type="tel" id="regPhone" placeholder="05XX XXX XX XX">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>İl <span class="required">*</span></label>
+          <select class="form-control city-select" id="regCity"></select>
+        </div>
+        <div class="form-group">
+          <label>Doğum Tarihi</label>
+          <input class="form-control" type="date" id="regBirth">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Eğitim Düzeyi <span class="required">*</span></label>
+        <select class="form-control" id="regEdu">
+          <option value="">Seç…</option>
+          <option>İlköğretim</option>
+          <option>Lise (Devam Ediyor)</option>
+          <option>Lise Mezunu</option>
+          <option>Ön Lisans (Devam Ediyor)</option>
+          <option>Ön Lisans Mezunu</option>
+          <option>Lisans (Devam Ediyor)</option>
+          <option>Lisans Mezunu</option>
+          <option>Yüksek Lisans</option>
+          <option>Doktora</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Şifre <span class="required">*</span></label>
+        <input class="form-control" type="password" id="regPass" placeholder="En az 6 karakter">
+      </div>
+      <button class="btn btn-accent btn-full" onclick="doRegister()">Kaydol 🎉</button>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div id="viewAdmin" style="display:none;">
+      <button class="back-btn" onclick="showLoginView()">← Geri</button>
+      <h2 style="font-size:1.35rem; margin-bottom:1.5rem;">🔐 Admin Girişi</h2>
+      <div class="form-group">
+        <label>Admin Kullanıcı Adı</label>
+        <input class="form-control" type="text" id="adminUser" placeholder="admin">
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input class="form-control" type="password" id="adminPass" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter') doAdminLogin()">
+      </div>
+      <button class="btn btn-accent btn-full" onclick="doAdminLogin()">Admin Olarak Giriş Yap</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN 3: APP
+     ============================================================ -->
+<div class="screen" id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-mark">G</div>
+      <div class="topbar-logo-text">Gençİş</div>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" data-theme-btn onclick="toggleTheme()">🌙</button>
+      <button class="avatar-btn" onclick="goPage('profile')" id="userAvatar">A</button>
+    </div>
+  </div>
+
+  <!-- CONTENT AREA -->
+  <div class="content">
+
+    <!-- PAGE: HOME -->
+    <div class="page active" id="page-home">
+      <p class="greeting-sub">Merhaba,</p>
+      <h2 class="greeting-name" id="welcomeName">Kullanıcı 👋</h2>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-val">12</div>
+          <div class="stat-lbl">Tamamlanan</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">4.8</div>
+          <div class="stat-lbl">Puanım</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">₺2.4K</div>
+          <div class="stat-lbl">Kazancım</div>
+        </div>
+      </div>
+
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="İş ara (başlık, şehir, beceri…)" id="homeSearch" oninput="filterJobs()">
+      </div>
+
+      <div class="filter-bar" id="filterBar"></div>
+      <div id="jobList"></div>
+    </div>
+
+    <!-- PAGE: POST JOB (EMPLOYER) -->
+    <div class="page" id="page-jobs">
+      <h1 class="page-title">İş İlanı Ver</h1>
+
+      <div class="card">
+        <div class="form-group">
+          <label>İş Başlığı <span class="required">*</span></label>
+          <input class="form-control" type="text" id="jobTitle" placeholder="Örn: Depo Yükleme Elemanı">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Kategori</label>
+            <select class="form-control" id="jobCat">
+              <option>Depo & Lojistik</option>
+              <option>Servis & Garsonluk</option>
+              <option>Etkinlik & Organizasyon</option>
+              <option>Ofis & Büro</option>
+              <option>Staj</option>
+              <option>Fabrika & Üretim</option>
+              <option>Temizlik</option>
+              <option>Güvenlik</option>
+              <option>Promosyon & Tanıtım</option>
+              <option>IT & Teknoloji</option>
+              <option>Diğer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Şehir <span class="required">*</span></label>
+            <select class="form-control city-select" id="jobCity"></select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Günlük Ücret (₺) <span class="required">*</span></label>
+            <input class="form-control" type="number" id="jobWage" placeholder="500" min="0">
+          </div>
+          <div class="form-group">
+            <label>Çalışma Süresi</label>
+            <select class="form-control" id="jobDuration">
+              <option>1 Gün</option>
+              <option>2–3 Gün</option>
+              <option>1 Hafta</option>
+              <option>2 Hafta</option>
+              <option>1 Ay</option>
+              <option>3 Ay (Staj)</option>
+              <option>Uzun Dönem</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Başlangıç Saati</label>
+            <select class="form-control">
+              <option>Sabah 08:00</option>
+              <option>Sabah 09:00</option>
+              <option>Öğle 12:00</option>
+              <option>Öğleden Sonra 14:00</option>
+              <option>Akşam 17:00</option>
+              <option>Akşam 18:00</option>
+              <option>Gece 22:00</option>
+              <option>Esnek</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kaç Kişi Aranıyor?</label>
+            <input class="form-control" type="number" placeholder="5" min="1">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tercih Edilen Eğitim</label>
+          <select class="form-control">
+            <option>Fark etmez</option>
+            <option>Lise</option>
+            <option>Ön Lisans</option>
+            <option>Lisans</option>
+            <option>Lisans + Üzeri</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Gereken Beceriler</label>
+          <div class="skills-grid" id="employerSkills">
+            <div class="skill-option" onclick="toggleSkill(this)">💪 Fiziksel Dayanıklılık</div>
+            <div class="skill-option" onclick="toggleSkill(this)">💻 Bilgisayar (Temel)</div>
+            <div class="skill-option" onclick="toggleSkill(this)">📊 Microsoft Office</div>
+            <div class="skill-option" onclick="toggleSkill(this)">🤝 Müşteri İlişkileri</div>
+            <div class="skill-option" onclick="toggleSkill(this)">👥 Ekip Çalışması</div>
+            <div class="skill-option" onclick="toggleSkill(this)">🚗 Ehliyet (B)</div>
+            <div class="skill-option" onclick="toggleSkill(this)">🇬🇧 İngilizce</div>
+            <div class="skill-option" onclick="toggleSkill(this)">🏭 Forklift Op.</div>
+            <div class="skill-option" onclick="toggleSkill(this)">🍽️ Gıda Hijyeni</div>
+            <div class="skill-option" onclick="toggleSkill(this)">📱 Sosyal Medya</div>
+            <div class="skill-option" onclick="toggleSkill(this)">💰 Muhasebe</div>
+            <div class="skill-option" onclick="toggleSkill(this)">🎯 Satış & İkna</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>İlan Fotoğrafı (Opsiyonel)</label>
+          <div class="photo-upload-zone" onclick="triggerPhotoUpload()">
+            <div class="upload-icon">📷</div>
+            <div class="upload-label">Fotoğraf yüklemek için tıkla</div>
+          </div>
+          <input type="file" id="photoUpload" accept="image/*" style="display:none" onchange="previewPhoto(event)">
+          <div id="photoPreview"></div>
+        </div>
+
+        <div class="form-group">
+          <label>İş Açıklaması & Notlar</label>
+          <textarea class="form-control" id="jobDesc" rows="3" placeholder="İş detayları, gereksinimler, önemli notlar…"></textarea>
+        </div>
+
+        <button class="btn btn-accent btn-full" onclick="postJob()">İlanı Yayınla 🚀</button>
+      </div>
+
+      <h2 style="font-size:1.1rem; font-weight:700; margin-bottom:0.8rem; font-family:'Syne',sans-serif;">Aktif İlanlarım</h2>
+      <div id="myPostedJobs"></div>
+    </div>
+
+    <!-- PAGE: SPECIAL / DISABILITY -->
+    <div class="page" id="page-special">
+      <div class="special-banner">
+        <div class="special-banner-icon">♿ 💙</div>
+        <h2>Engelsiz Fırsatlar</h2>
+        <p>Fiziksel, görsel, işitsel veya zihinsel engeli olan bireyler için özel olarak uyarlanmış iş pozisyonları. Tüm işverenler engel durumunu biliyor ve destekliyor.</p>
+      </div>
+      <div class="card" style="background: linear-gradient(135deg,rgba(71,255,184,0.05),rgba(232,255,71,0.03)); border-color: rgba(71,255,184,0.2);">
+        <p style="font-size:0.88rem; line-height:1.75; color:var(--text2);">
+          Bu sayfadaki tüm pozisyonlar; <strong style="color:var(--text);">uzaktan çalışma, esnek saat, yardımcı teknoloji desteği</strong> veya erişilebilir fiziksel ortam gibi özellikler içermektedir.
+          Engel teşvik primleri ve devlet destekleri hakkında destek hattımızdan bilgi alabilirsiniz.
+        </p>
+      </div>
+      <div id="specialJobList"></div>
+    </div>
+
+    <!-- PAGE: PROFILE -->
+    <div class="page" id="page-profile">
+      <div class="profile-hero">
+        <div class="profile-avatar" id="profileAvatarBig">A</div>
+        <div class="profile-name" id="profileNameBig">Kullanıcı Adı</div>
+        <div class="profile-meta" id="profileLocEdu">Şehir • Eğitim Düzeyi</div>
+        <div class="profile-stars">★★★★★</div>
+        <div class="profile-score">4.8 / 5.0 ortalama puan</div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-val">12</div><div class="stat-lbl">Görev</div></div>
+        <div class="stat-box"><div class="stat-val">₺2.4K</div><div class="stat-lbl">Kazanç</div></div>
+        <div class="stat-box"><div class="stat-val">%98</div><div class="stat-lbl">Başarı</div></div>
+      </div>
+
+      <!-- Completed Jobs -->
+      <div class="card">
+        <div class="section-title">Tamamlanan İşler</div>
+        <div class="user-row">
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Depo Yükleme — Migros</div>
+            <div style="font-size:0.78rem; color:var(--text2);">15 Ocak 2026 · 2 gün · ₺1.500</div>
+          </div>
+          <span class="tag tag-green">★ 5.0</span>
+        </div>
+        <div class="user-row">
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Etkinlik Görevlisi — Kongre Merkezi</div>
+            <div style="font-size:0.78rem; color:var(--text2);">8 Ocak 2026 · 1 gün · ₺600</div>
+          </div>
+          <span class="tag tag-green">★ 4.8</span>
+        </div>
+        <div class="user-row">
+          <div>
+            <div style="font-weight:600; font-size:0.9rem;">Ofis Destek — Garanti BBVA</div>
+            <div style="font-size:0.78rem; color:var(--text2);">20 Aralık 2025 · 3 gün · ₺1.950</div>
+          </div>
+          <span class="tag tag-green">★ 5.0</span>
+        </div>
+      </div>
+
+      <!-- Employer Reviews -->
+      <div class="card">
+        <div class="section-title">İşveren Yorumları</div>
+        <div style="padding:0.8rem 0; border-bottom:1px solid var(--border);">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+            <div style="font-weight:600; font-size:0.88rem;">Migros Lojistik</div>
+            <div style="color:#ffd700; font-size:0.85rem;">★★★★★</div>
+          </div>
+          <div style="font-size:0.83rem; color:var(--text2);">"Çok çalışkan ve güvenilir. Tekrar çalışmak isteriz."</div>
+        </div>
+        <div style="padding:0.8rem 0; border-bottom:1px solid var(--border);">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+            <div style="font-weight:600; font-size:0.88rem;">İstanbul Kongre Merkezi</div>
+            <div style="color:#ffd700; font-size:0.85rem;">★★★★☆</div>
+          </div>
+          <div style="font-size:0.83rem; color:var(--text2);">"Zamanında geldi, görevini başarıyla tamamladı."</div>
+        </div>
+        <div style="padding:0.8rem 0;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+            <div style="font-weight:600; font-size:0.88rem;">Garanti BBVA</div>
+            <div style="color:#ffd700; font-size:0.85rem;">★★★★★</div>
+          </div>
+          <div style="font-size:0.83rem; color:var(--text2);">"Düzenli, titiz ve uyumlu bir çalışan. Teşekkürler."</div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="card">
+        <div class="section-title">Hesap Ayarları</div>
+        <div class="settings-list">
+          <div class="settings-item" onclick="openModal('editProfileModal')">
+            <div class="settings-item-left">
+              <span class="settings-icon">✏️</span>
+              <span class="settings-label">Profili Düzenle</span>
+            </div>
+            <span class="settings-arrow">›</span>
+          </div>
+          <div class="settings-item" onclick="openModal('changePassModal')">
+            <div class="settings-item-left">
+              <span class="settings-icon">🔑</span>
+              <span class="settings-label">Şifre Değiştir</span>
+            </div>
+            <span class="settings-arrow">›</span>
+          </div>
+          <div class="settings-item" onclick="openModal('changeEmailModal')">
+            <div class="settings-item-left">
+              <span class="settings-icon">📧</span>
+              <span class="settings-label">E-posta Değiştir</span>
+            </div>
+            <span class="settings-arrow">›</span>
+          </div>
+          <div class="settings-item" onclick="openModal('changePhoneModal')">
+            <div class="settings-item-left">
+              <span class="settings-icon">📱</span>
+              <span class="settings-label">Telefon Numarası Değiştir</span>
+            </div>
+            <span class="settings-arrow">›</span>
+          </div>
+          <div class="settings-item" onclick="toggleTheme()">
+            <div class="settings-item-left">
+              <span class="settings-icon">🎨</span>
+              <span class="settings-label">Tema Değiştir (Koyu / Açık)</span>
+            </div>
+            <span class="settings-arrow">›</span>
+          </div>
+          <div class="settings-item" style="color:var(--red);" onclick="logout()">
+            <div class="settings-item-left">
+              <span class="settings-icon">🚪</span>
+              <span class="settings-label" style="color:var(--red);">Çıkış Yap</span>
+            </div>
+            <span class="settings-arrow" style="color:var(--red);">›</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /content -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="goPage('home')">
+      <span class="nav-icon">🏠</span>Ana Sayfa
+    </button>
+    <button class="nav-item" onclick="goPage('jobs')">
+      <span class="nav-icon">📋</span>İlan Ver
+    </button>
+    <button class="nav-item" onclick="goPage('special')">
+      <span class="nav-icon">♿</span>Engelsiz
+    </button>
+    <button class="nav-item" onclick="goPage('profile')">
+      <span class="nav-icon">👤</span>Profil
+    </button>
+  </nav>
+
+</div><!-- /app -->
+
+<!-- ============================================================
+     SCREEN 4: ADMIN PANEL
+     ============================================================ -->
+<div class="screen" id="adminPanel">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-mark" style="background:var(--red); color:#fff;">A</div>
+      <div class="topbar-logo-text">Admin Paneli</div>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" data-theme-btn onclick="toggleTheme()">🌙</button>
+      <button class="btn btn-outline btn-sm" onclick="logout()">Çıkış</button>
+    </div>
+  </div>
+  <div class="content">
+    <h1 class="page-title">Genel Bakış</h1>
+
+    <div class="admin-grid">
+      <div class="admin-stat">
+        <div class="admin-stat-val">247</div>
+        <div class="admin-stat-lbl">Toplam Kullanıcı</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-val">89</div>
+        <div class="admin-stat-lbl">Aktif İlan</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-val">₺128K</div>
+        <div class="admin-stat-lbl">Toplam İşlem</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-val">14</div>
+        <div class="admin-stat-lbl">Bu Ay Görev</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Son İşlemler</div>
+      <div class="user-row">
+        <div class="user-info">
+          <div class="mini-avatar" style="background:rgba(232,255,71,0.15); color:var(--accent);">A</div>
+          <div>
+            <div style="font-weight:600;font-size:0.88rem;">Ahmet Yılmaz</div>
+            <div style="font-size:0.75rem;color:var(--text2);">Depo Görevi — ₺750 ödendi</div>
+          </div>
+        </div>
+        <span class="tag tag-green">Tamamlandı</span>
+      </div>
+      <div class="user-row">
+        <div class="user-info">
+          <div class="mini-avatar" style="background:rgba(71,255,184,0.15); color:var(--accent2);">Z</div>
+          <div>
+            <div style="font-weight:600;font-size:0.88rem;">Zeynep Kaya</div>
+            <div style="font-size:0.75rem;color:var(--text2);">Etkinlik Görevi — ₺600 ödendi</div>
+          </div>
+        </div>
+        <span class="tag tag-green">Tamamlandı</span>
+      </div>
+      <div class="user-row">
+        <div class="user-info">
+          <div class="mini-avatar" style="background:rgba(255,71,87,0.15); color:var(--red);">M</div>
+          <div>
+            <div style="font-weight:600;font-size:0.88rem;">Mehmet Demir</div>
+            <div style="font-size:0.75rem;color:var(--text2);">Staj Başvurusu</div>
+          </div>
+        </div>
+        <span class="tag tag-accent">Bekliyor</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Kullanıcı Yönetimi</div>
+      <div id="adminUserList">
+        <div class="user-row">
+          <div class="user-info">
+            <div class="mini-avatar">A</div>
+            <div>
+              <div style="font-weight:600;font-size:0.88rem;">Ahmet Yılmaz</div>
+              <div style="font-size:0.75rem;color:var(--text2);">İstanbul · 12 görev · ★ 4.8</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" onclick="blockUser(this,'Ahmet Yılmaz')">Engelle</button>
+        </div>
+        <div class="user-row">
+          <div class="user-info">
+            <div class="mini-avatar">Z</div>
+            <div>
+              <div style="font-weight:600;font-size:0.88rem;">Zeynep Kaya</div>
+              <div style="font-size:0.75rem;color:var(--text2);">Ankara · 8 görev · ★ 4.9</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" onclick="blockUser(this,'Zeynep Kaya')">Engelle</button>
+        </div>
+        <div class="user-row">
+          <div class="user-info">
+            <div class="mini-avatar">M</div>
+            <div>
+              <div style="font-weight:600;font-size:0.88rem;">Mehmet Demir</div>
+              <div style="font-size:0.75rem;color:var(--text2);">İzmir · 3 görev · ★ 4.6</div>
+            </div>
+          </div>
+          <button class="btn btn-danger btn-sm" onclick="blockUser(this,'Mehmet Demir')">Engelle</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Aktif İlanlar</div>
+      <div id="adminJobList"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     MODALS
+     ============================================================ -->
+
+<!-- Job Detail Modal -->
+<div class="modal-overlay" id="jobModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal('jobModal')">✕ Kapat</button>
+    <div id="jobModalContent"></div>
+  </div>
+</div>
+
+<!-- Apply Modal -->
+<div class="modal-overlay" id="applyModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Başvuru Yap ✉️</div>
+    <div class="form-group">
+      <label>Başvuru Yazısı <span class="required">*</span></label>
+      <textarea class="form-control" id="applyText" rows="4" placeholder="Kendinizi tanıtın. Neden bu iş için uygun olduğunuzu belirtin…"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Müsaitlik Saatleri</label>
+      <select class="form-control">
+        <option>Tam Gün (08:00 – 18:00)</option>
+        <option>Sabah (08:00 – 13:00)</option>
+        <option>Öğleden Sonra (13:00 – 18:00)</option>
+        <option>Akşam (18:00 – 23:00)</option>
+        <option>Gece (22:00 – 06:00)</option>
+        <option>Esnek</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Deneyim Düzeyi</label>
+      <select class="form-control">
+        <option>Deneyimsiz / İlk Kez</option>
+        <option>Benzer İş Yaptım</option>
+        <option>Deneyimliyim</option>
+        <option>Uzmanım</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>En Erken Başlangıç Tarihi</label>
+      <input class="form-control" type="date">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Beklenen Ücret (₺/gün)</label>
+        <input class="form-control" type="number" placeholder="İlan ücreti">
+      </div>
+      <div class="form-group">
+        <label>Ulaşım Aracı</label>
+        <select class="form-control">
+          <option>Toplu Taşıma</option>
+          <option>Özel Araç</option>
+          <option>Motorsiklet</option>
+          <option>Yürüme Mesafesinde</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-accent btn-full" onclick="submitApplication()">Başvuruyu Gönder 🚀</button>
+  </div>
+</div>
+
+<!-- Rate Modal -->
+<div class="modal-overlay" id="rateModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Görevi Değerlendir ⭐</div>
+    <p style="color:var(--text2);margin-bottom:1.2rem;font-size:0.88rem;">Tamamladığın görev ve işveren için puan ve yorum bırak.</p>
+    <div class="form-group">
+      <label>İşverene Puan</label>
+      <div class="stars-input" id="ratingStars">
+        <button class="star-btn" onclick="setRating(1)">★</button>
+        <button class="star-btn" onclick="setRating(2)">★</button>
+        <button class="star-btn" onclick="setRating(3)">★</button>
+        <button class="star-btn" onclick="setRating(4)">★</button>
+        <button class="star-btn" onclick="setRating(5)">★</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Yorum</label>
+      <textarea class="form-control" rows="3" placeholder="Çalışma ortamı, ödeme düzeni, davranış…"></textarea>
+    </div>
+    <button class="btn btn-accent btn-full" onclick="submitRating()">Değerlendirmeyi Gönder</button>
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal-overlay" id="editProfileModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Profili Düzenle ✏️</div>
+    <div class="form-group"><label>Ad Soyad</label><input class="form-control" type="text" value="Ahmet Yılmaz"></div>
+    <div class="form-group"><label>İl</label><select class="form-control city-select"></select></div>
+    <div class="form-group">
+      <label>Eğitim Düzeyi</label>
+      <select class="form-control">
+        <option>Lisans Mezunu</option>
+        <option>Lisans (Devam Ediyor)</option>
+        <option>Ön Lisans Mezunu</option>
+        <option>Lise Mezunu</option>
+        <option>Yüksek Lisans</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Hakkımda</label><textarea class="form-control" rows="3" placeholder="Kendinizi kısaca tanıtın…"></textarea></div>
+    <button class="btn btn-accent btn-full" onclick="saveProfile()">Kaydet ✅</button>
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal-overlay" id="changePassModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Şifre Değiştir 🔑</div>
+    <div class="form-group"><label>Mevcut Şifre</label><input class="form-control" type="password" placeholder="••••••••"></div>
+    <div class="form-group"><label>Yeni Şifre</label><input class="form-control" type="password" placeholder="••••••••"></div>
+    <div class="form-group"><label>Yeni Şifre (Tekrar)</label><input class="form-control" type="password" placeholder="••••••••"></div>
+    <button class="btn btn-accent btn-full" onclick="savePassword()">Şifremi Güncelle</button>
+  </div>
+</div>
+
+<!-- Change Email Modal -->
+<div class="modal-overlay" id="changeEmailModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">E-posta Değiştir 📧</div>
+    <div class="form-group"><label>Yeni E-posta</label><input class="form-control" type="email" placeholder="yeni@email.com"></div>
+    <div class="form-group"><label>Şifre (Doğrulama)</label><input class="form-control" type="password" placeholder="••••••••"></div>
+    <button class="btn btn-accent btn-full" onclick="saveEmail()">E-postayı Güncelle</button>
+  </div>
+</div>
+
+<!-- Change Phone Modal -->
+<div class="modal-overlay" id="changePhoneModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Telefon Değiştir 📱</div>
+    <div class="form-group"><label>Yeni Telefon Numarası</label><input class="form-control" type="tel" placeholder="05XX XXX XX XX"></div>
+    <div class="form-group"><label>Şifre (Doğrulama)</label><input class="form-control" type="password" placeholder="••••••••"></div>
+    <button class="btn btn-accent btn-full" onclick="savePhone()">Numarayı Güncelle</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
